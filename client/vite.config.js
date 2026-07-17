@@ -8,11 +8,11 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "http://192.168.1.111:5000",
+        target: "https://optical-store-uy38.onrender.com",
         changeOrigin: true,
       },
       "/uploads": {
-        target: "http://192.168.1.111:5000",
+        target: "https://optical-store-uy38.onrender.com",
         changeOrigin: true,
       },
     },
