@@ -25,7 +25,7 @@ const app = express();
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(cors({
-  origin: "https://monumental-boba-0b82ea.netlify.app/",
+  origin: "https://optical-store-jebn.onrender.com",
   credentials: true,
 }));
 
