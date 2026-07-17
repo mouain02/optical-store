@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "shop": "Shop",
+    "dashboard": "Dashboard",
+    "prescription": "Prescription Glasses",
+    "sunglasses": "Sunglasses",
+    "blueLight": "Blue Light",
+    "kids": "Kids",
+    "account": "Account",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "promo": {
+    "freeDelivery": "Free delivery on orders over {{amount}} {{currency}}"
+  },
+  "hero": {
+    "title": "Discover Your Perfect Glasses",
+    "subtitle": "Premium frames crafted for everyday elegance",
+    "cta": "Shop Collection"
+  },
+  "collections": {
+    "men": "Men",
+    "women": "Women",
+    "kids": "Kids"
+  },
+  "features": {
+    "premiumFrames": "Premium Frames",
+    "qualityLenses": "Quality Lenses",
+    "secureDelivery": "Secure Delivery",
+    "customerSupport": "Customer Support"
+  },
+  "shop": {
+    "title": "Shop",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "noProducts": "No products found",
+    "results": "{{count}} products",
+    "clearFilters": "Clear filters"
+  },
+  "filters": {
+    "category": "Category",
+    "brand": "Brand",
+    "price": "Price",
+    "color": "Color",
+    "frameShape": "Frame Shape",
+    "material": "Material",
+    "gender": "Gender",
+    "size": "Size",
+    "inStock": "In stock only"
+  },
+  "sort": {
+    "newest": "Newest",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "rating": "Best Rated"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "reviews": "Reviews",
+    "related": "Related Products",
+    "selectColor": "Select Color",
+    "selectSize": "Select Size",
+    "customizeLenses": "Customize Lenses"
+  },
+  "lens": {
+    "title": "Lens Customization",
+    "type": "Lens Type",
+    "single": "Single Vision",
+    "progressive": "Progressive",
+    "bifocal": "Bifocal",
+    "treatments": "Treatments",
+    "antiReflective": "Anti-Reflective Coating",
+    "blueLight": "Blue Light Protection",
+    "uv": "UV Protection",
+    "photochromic": "Photochromic Lenses",
+    "frame": "Frame",
+    "total": "Total"
+  },
+  "prescription": {
+    "title": "Prescription",
+    "upload": "Upload Prescription",
+    "manual": "Enter Manually",
+    "rightEye": "Right Eye",
+    "leftEye": "Left Eye",
+    "sph": "SPH",
+    "cyl": "CYL",
+    "axis": "AXIS",
+    "pd": "PD (Pupillary Distance)",
+    "save": "Save Prescription",
+    "saved": "Saved Prescriptions",
+    "select": "Select Prescription"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "remove": "Remove",
+    "quantity": "Quantity"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingInfo": "Shipping Information",
+    "orderSummary": "Order Summary",
+    "paymentMethod": "Payment Method",
+    "cod": "Cash on Delivery",
+    "online": "Online Payment",
+    "placeOrder": "Place Order",
+    "coupon": "Coupon Code",
+    "apply": "Apply"
+  },
+  "order": {
+    "confirmation": "Order Confirmed",
+    "thankYou": "Thank you for your order!",
+    "orderNumber": "Order Number",
+    "track": "Track Order",
+    "status": {
+      "pending": "Pending",
+      "prescription_verification": "Prescription Verification",
+      "processing": "Processing",
+      "ready": "Ready",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    }
+  },
+  "account": {
+    "dashboard": "Dashboard",
+    "title": "My Account",
+    "profile": "Profile",
+    "orders": "Orders",
+    "addresses": "Addresses",
+    "prescriptions": "Prescriptions",
+    "wishlist": "Wishlist",
+    "reviews": "My Reviews"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "phone": "Phone",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "products": "Products",
+    "orders": "Orders",
+    "customers": "Customers",
+    "reviews": "Reviews",
+    "coupons": "Coupons",
+    "brands": "Brands",
+    "store": "Store Settings",
+    "stats": {
+      "revenue": "Revenue",
+      "orders": "Orders",
+      "customers": "Customers",
+      "products": "Products"
+    },
+    "addProduct": "Add Product",
+    "editProduct": "Edit Product",
+    "uploadImages": "Upload Images",
+    "reorderImages": "Reorder Images",
+    "deleteImage": "Delete Image"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "back": "Back",
+    "free": "Free"
+  },
+  "footer": {
+    "about": "About",
+    "contact": "Contact",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "privacy": "Privacy Policy",
+    "copyright": "© {{year}} {{storeName}}. All rights reserved."
+  },
+  "categories": {
+    "prescription": "Prescription Glasses",
+    "sunglasses": "Sunglasses",
+    "contact-lenses": "Contact Lenses",
+    "blue-light": "Blue Light Glasses",
+    "kids": "Kids Glasses",
+    "accessories": "Accessories"
+  }
+}

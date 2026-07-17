@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "shop": "Boutique",
+    "dashboard": "Tableau de bord",
+    "prescription": "Lunettes de vue",
+    "sunglasses": "Lunettes de soleil",
+    "blueLight": "Lumière bleue",
+    "kids": "Enfants",
+    "account": "Compte",
+    "cart": "Panier",
+    "wishlist": "Favoris",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion",
+    "admin": "Admin"
+  },
+  "promo": {
+    "freeDelivery": "Livraison gratuite pour les commandes de plus de {{amount}} {{currency}}"
+  },
+  "hero": {
+    "title": "Trouvez Vos Lunettes Parfaites",
+    "subtitle": "Des montures premium conçues pour l'élégance au quotidien",
+    "cta": "Découvrir la Collection"
+  },
+  "collections": {
+    "men": "Homme",
+    "women": "Femme",
+    "kids": "Enfants"
+  },
+  "features": {
+    "premiumFrames": "Montures Premium",
+    "qualityLenses": "Verres de Qualité",
+    "secureDelivery": "Livraison Sécurisée",
+    "customerSupport": "Service Client"
+  },
+  "shop": {
+    "title": "Boutique",
+    "filters": "Filtres",
+    "sortBy": "Trier par",
+    "noProducts": "Aucun produit trouvé",
+    "results": "{{count}} produits",
+    "clearFilters": "Effacer les filtres"
+  },
+  "filters": {
+    "category": "Catégorie",
+    "brand": "Marque",
+    "price": "Prix",
+    "color": "Couleur",
+    "frameShape": "Forme",
+    "material": "Matériau",
+    "gender": "Genre",
+    "size": "Taille",
+    "inStock": "En stock uniquement"
+  },
+  "sort": {
+    "newest": "Plus récent",
+    "priceAsc": "Prix croissant",
+    "priceDesc": "Prix décroissant",
+    "rating": "Mieux notés"
+  },
+  "product": {
+    "addToCart": "Ajouter au panier",
+    "addToWishlist": "Ajouter aux favoris",
+    "removeFromWishlist": "Retirer des favoris",
+    "inStock": "En stock",
+    "outOfStock": "Rupture de stock",
+    "reviews": "Avis",
+    "related": "Produits similaires",
+    "selectColor": "Choisir la couleur",
+    "selectSize": "Choisir la taille",
+    "customizeLenses": "Personnaliser les verres"
+  },
+  "lens": {
+    "title": "Personnalisation des verres",
+    "type": "Type de verre",
+    "single": "Unifocal",
+    "progressive": "Progressif",
+    "bifocal": "Bifocal",
+    "treatments": "Traitements",
+    "antiReflective": "Anti-reflet",
+    "blueLight": "Protection lumière bleue",
+    "uv": "Protection UV",
+    "photochromic": "Verres photochromiques",
+    "frame": "Monture",
+    "total": "Total"
+  },
+  "prescription": {
+    "title": "Ordonnance",
+    "upload": "Télécharger l'ordonnance",
+    "manual": "Saisir manuellement",
+    "rightEye": "Œil droit",
+    "leftEye": "Œil gauche",
+    "sph": "SPH",
+    "cyl": "CYL",
+    "axis": "AXE",
+    "pd": "EP (Écart pupillaire)",
+    "save": "Enregistrer l'ordonnance",
+    "saved": "Ordonnances enregistrées",
+    "select": "Sélectionner une ordonnance"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "discount": "Réduction",
+    "total": "Total",
+    "checkout": "Passer la commande",
+    "continueShopping": "Continuer vos achats",
+    "remove": "Supprimer",
+    "quantity": "Quantité"
+  },
+  "checkout": {
+    "title": "Commande",
+    "shippingInfo": "Informations de livraison",
+    "orderSummary": "Récapitulatif",
+    "paymentMethod": "Mode de paiement",
+    "cod": "Paiement à la livraison",
+    "online": "Paiement en ligne",
+    "placeOrder": "Confirmer la commande",
+    "coupon": "Code promo",
+    "apply": "Appliquer"
+  },
+  "order": {
+    "confirmation": "Commande confirmée",
+    "thankYou": "Merci pour votre commande !",
+    "orderNumber": "Numéro de commande",
+    "track": "Suivre la commande",
+    "status": {
+      "pending": "En attente",
+      "prescription_verification": "Vérification ordonnance",
+      "processing": "En traitement",
+      "ready": "Prête",
+      "shipped": "Expédiée",
+      "delivered": "Livrée",
+      "cancelled": "Annulée"
+    }
+  },
+  "account": {
+    "dashboard": "Tableau de bord",
+    "title": "Mon compte",
+    "profile": "Profil",
+    "orders": "Commandes",
+    "addresses": "Adresses",
+    "prescriptions": "Ordonnances",
+    "wishlist": "Favoris",
+    "reviews": "Mes avis"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "name": "Nom complet",
+    "phone": "Téléphone",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord",
+    "users": "Utilisateurs",
+    "products": "Produits",
+    "orders": "Commandes",
+    "customers": "Clients",
+    "reviews": "Avis",
+    "coupons": "Coupons",
+    "brands": "Marques",
+    "store": "Paramètres de la boutique",
+    "stats": {
+      "revenue": "Revenus",
+      "orders": "Commandes",
+      "customers": "Clients",
+      "products": "Produits"
+    },
+    "addProduct": "Ajouter un produit",
+    "editProduct": "Modifier le produit",
+    "uploadImages": "Télécharger des images",
+    "reorderImages": "Réorganiser les images",
+    "deleteImage": "Supprimer l'image"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "back": "Retour",
+    "free": "Gratuit"
+  },
+  "footer": {
+    "about": "À propos",
+    "contact": "Contact",
+    "shipping": "Livraison",
+    "returns": "Retours",
+    "privacy": "Confidentialité",
+    "copyright": "© {{year}} {{storeName}}. Tous droits réservés."
+  },
+  "categories": {
+    "prescription": "Lunettes de vue",
+    "sunglasses": "Lunettes de soleil",
+    "contact-lenses": "Lentilles de contact",
+    "blue-light": "Lunettes lumière bleue",
+    "kids": "Lunettes enfant",
+    "accessories": "Accessoires"
+  }
+}

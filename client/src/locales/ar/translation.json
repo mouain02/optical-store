@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "shop": "المتجر",
+    "dashboard": "لوحة التحكم",
+    "prescription": "نظارات طبية",
+    "sunglasses": "نظارات شمسية",
+    "blueLight": "حماية الضوء الأزرق",
+    "kids": "أطفال",
+    "account": "حسابي",
+    "cart": "السلة",
+    "wishlist": "المفضلة",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "admin": "الإدارة"
+  },
+  "promo": {
+    "freeDelivery": "توصيل مجاني للطلبات فوق {{amount}} {{currency}}"
+  },
+  "hero": {
+    "title": "اكتشف نظارتك المثالية",
+    "subtitle": "إطارات فاخرة مصممة للأناقة اليومية",
+    "cta": "تسوق المجموعة"
+  },
+  "collections": {
+    "men": "رجال",
+    "women": "نساء",
+    "kids": "أطفال"
+  },
+  "features": {
+    "premiumFrames": "إطارات فاخرة",
+    "qualityLenses": "عدسات عالية الجودة",
+    "secureDelivery": "توصيل آمن",
+    "customerSupport": "دعم العملاء"
+  },
+  "shop": {
+    "title": "المتجر",
+    "filters": "تصفية",
+    "sortBy": "ترتيب حسب",
+    "noProducts": "لا توجد منتجات",
+    "results": "{{count}} منتج",
+    "clearFilters": "مسح التصفية"
+  },
+  "filters": {
+    "category": "الفئة",
+    "brand": "العلامة",
+    "price": "السعر",
+    "color": "اللون",
+    "frameShape": "شكل الإطار",
+    "material": "المادة",
+    "gender": "الجنس",
+    "size": "المقاس",
+    "inStock": "متوفر فقط"
+  },
+  "sort": {
+    "newest": "الأحدث",
+    "priceAsc": "السعر: من الأقل",
+    "priceDesc": "السعر: من الأعلى",
+    "rating": "الأعلى تقييماً"
+  },
+  "product": {
+    "addToCart": "أضف إلى السلة",
+    "addToWishlist": "أضف إلى المفضلة",
+    "removeFromWishlist": "إزالة من المفضلة",
+    "inStock": "متوفر",
+    "outOfStock": "غير متوفر",
+    "reviews": "التقييمات",
+    "related": "منتجات مشابهة",
+    "selectColor": "اختر اللون",
+    "selectSize": "اختر المقاس",
+    "customizeLenses": "تخصيص العدسات"
+  },
+  "lens": {
+    "title": "تخصيص العدسات",
+    "type": "نوع العدسة",
+    "single": "أحادية البؤرة",
+    "progressive": "متدرجة",
+    "bifocal": "ثنائية البؤرة",
+    "treatments": "المعالجات",
+    "antiReflective": "مضاد للانعكاس",
+    "blueLight": "حماية الضوء الأزرق",
+    "uv": "حماية UV",
+    "photochromic": "عدسات متغيرة اللون",
+    "frame": "الإطار",
+    "total": "المجموع"
+  },
+  "prescription": {
+    "title": "الوصفة الطبية",
+    "upload": "رفع الوصفة",
+    "manual": "إدخال يدوي",
+    "rightEye": "العين اليمنى",
+    "leftEye": "العين اليسرى",
+    "sph": "SPH",
+    "cyl": "CYL",
+    "axis": "AXIS",
+    "pd": "المسافة بين الحدقتين",
+    "save": "حفظ الوصفة",
+    "saved": "الوصفات المحفوظة",
+    "select": "اختر وصفة"
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلتك فارغة",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "discount": "الخصم",
+    "total": "المجموع",
+    "checkout": "إتمام الشراء",
+    "continueShopping": "متابعة التسوق",
+    "remove": "إزالة",
+    "quantity": "الكمية"
+  },
+  "checkout": {
+    "title": "الدفع",
+    "shippingInfo": "معلومات الشحن",
+    "orderSummary": "ملخص الطلب",
+    "paymentMethod": "طريقة الدفع",
+    "cod": "الدفع عند الاستلام",
+    "online": "الدفع الإلكتروني",
+    "placeOrder": "تأكيد الطلب",
+    "coupon": "رمز الخصم",
+    "apply": "تطبيق"
+  },
+  "order": {
+    "confirmation": "تم تأكيد الطلب",
+    "thankYou": "شكراً لطلبك!",
+    "orderNumber": "رقم الطلب",
+    "track": "تتبع الطلب",
+    "status": {
+      "pending": "قيد الانتظار",
+      "prescription_verification": "مراجعة الوصفة",
+      "processing": "قيد المعالجة",
+      "ready": "جاهز",
+      "shipped": "تم الشحن",
+      "delivered": "تم التسليم",
+      "cancelled": "ملغى"
+    }
+  },
+  "account": {
+    "dashboard": "لوحة التحكم",
+    "title": "حسابي",
+    "profile": "الملف الشخصي",
+    "orders": "الطلبات",
+    "addresses": "العناوين",
+    "prescriptions": "الوصفات",
+    "wishlist": "المفضلة",
+    "reviews": "تقييماتي"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "name": "الاسم الكامل",
+    "phone": "الهاتف",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟"
+  },
+  "admin": {
+    "dashboard": "لوحة التحكم",
+    "users": "المستخدمون",
+    "products": "المنتجات",
+    "orders": "الطلبات",
+    "customers": "العملاء",
+    "reviews": "التقييمات",
+    "coupons": "الخصومات",
+    "brands": "العلامات",
+    "store": "إعدادات المتجر",
+    "stats": {
+      "revenue": "الإيرادات",
+      "orders": "الطلبات",
+      "customers": "العملاء",
+      "products": "المنتجات"
+    },
+    "addProduct": "إضافة منتج",
+    "editProduct": "تعديل المنتج",
+    "uploadImages": "رفع الصور",
+    "reorderImages": "إعادة ترتيب الصور",
+    "deleteImage": "حذف الصورة"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث",
+    "back": "رجوع",
+    "free": "مجاني"
+  },
+  "footer": {
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "shipping": "الشحن",
+    "returns": "الإرجاع",
+    "privacy": "الخصوصية",
+    "copyright": "© {{year}} {{storeName}}. جميع الحقوق محفوظة."
+  },
+  "categories": {
+    "prescription": "نظارات طبية",
+    "sunglasses": "نظارات شمسية",
+    "contact-lenses": "عدسات لاصقة",
+    "blue-light": "نظارات الضوء الأزرق",
+    "kids": "نظارات أطفال",
+    "accessories": "إكسسوارات"
+  }
+}

@@ -1,0 +1,3 @@
+# Keep uploads in git but ignore user content
+*
+!.gitkeep
