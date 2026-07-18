@@ -1,3 +1,8 @@
+import hero from "../assets/images/hero.jpg";
+import men from "../assets/images/collections/men.jpg";
+import women from "../assets/images/collections/women.jpg";
+import kids from "../assets/images/collections/kids.jpg";
+
 export default {
   storeName: "optic store",
   logo: "/uploads/store/logo.png",
@@ -40,10 +45,12 @@ export default {
       photochromic: 120,
     },
   },
-  heroImage: "src/assets/images/hero.jpg",
+
+  heroImage: hero,
+
   collections: {
-    men: "src/assets/images/collections/men.jpg",
-    women: "src/assets/images/collections/women.jpg",
-    kids: "src/assets/images/collections/kids.jpg",
+    men,
+    women,
+    kids,
   },
 };
