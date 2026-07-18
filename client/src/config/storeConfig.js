@@ -1,4 +1,4 @@
-import hero from "../assets/images/hero.jpg";
+import hero from "../assets/images/hero.png";
 import men from "../assets/images/collections/men.jpg";
 import women from "../assets/images/collections/women.jpg";
 import kids from "../assets/images/collections/kids.jpg";
