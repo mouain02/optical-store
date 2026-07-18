@@ -40,10 +40,10 @@ export default {
       photochromic: 120,
     },
   },
-  heroImage: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=1920&q=80",
+  heroImage: "src/assets/images/hero.jpg",
   collections: {
-    men: "https://images.unsplash.com/photo-1622519407650-3df9883f76e5?w=800&q=80",
-    women: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=80",
-    kids: "https://images.unsplash.com/photo-1503341457502-2d958b3080b6?w=800&q=80",
+    men: "src/assets/images/collections/men.jpg",
+    women: "src/assets/images/collections/women.jpg",
+    kids: "src/assets/images/collections/kids.jpg",
   },
 };
