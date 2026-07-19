@@ -9,17 +9,22 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white mt-24">
       {/* Google Map */}
-      <div className="w-full h-80">
-        <iframe
-          title={`${storeConfig.storeName} Location`}
-          src={storeConfig.contact.mapEmbed}
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      <div className="section-padding pt-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="overflow-hidden rounded-[32px] shadow-xl border border-white/10 bg-neutral-900 p-2">
+            <iframe
+              title={`${storeConfig.storeName} Location`}
+              src={storeConfig.contact.mapEmbed}
+              width="100%"
+              height="280"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-[24px]"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="section-padding py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
