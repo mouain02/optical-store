@@ -15,7 +15,7 @@ export default {
   theme: {
     primary: "#1a1a1a",
     accent: "#b83109",
-    promoBar: "#2d2d2d",
+    promoBar: "#000000",
   },
 
   contact: {
