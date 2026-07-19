@@ -4,8 +4,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  Instagram,
-  Facebook,
   MessageCircle,
   ArrowRight,
 } from "lucide-react";
@@ -65,7 +63,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-all"
                 >
-                  <Instagram size={18} />
+                  <span className="text-sm font-bold">IG</span>
                 </a>
               )}
 
@@ -76,7 +74,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-all"
                 >
-                  <Facebook size={18} />
+                  <span className="text-sm font-bold">f</span>
                 </a>
               )}
 
