@@ -8,6 +8,20 @@ export default function Footer() {
 
   return (
     <footer className="bg-primary text-white mt-24">
+      {/* Google Map */}
+      <div className="w-full h-80">
+        <iframe
+          title={`${storeConfig.storeName} Location`}
+          src={storeConfig.contact.mapEmbed}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+
       <div className="section-padding py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
         <div>
           <h3 className="font-heading text-2xl uppercase tracking-widest mb-4">
@@ -15,9 +29,7 @@ export default function Footer() {
           </h3>
 
           <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              storeConfig.contact.address
-            )}`}
+            href={storeConfig.contact.mapUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-sm text-gray-400 hover:text-white transition-colors leading-relaxed"
@@ -76,7 +88,7 @@ export default function Footer() {
             {t("footer.contact")}
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             {storeConfig.social.instagram && (
               <a
                 href={storeConfig.social.instagram}
