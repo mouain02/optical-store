@@ -13,30 +13,101 @@ export default function Footer() {
           <h3 className="font-heading text-2xl uppercase tracking-widest mb-4">
             {storeConfig.storeName}
           </h3>
-          <p className="text-sm text-gray-400 leading-relaxed">{storeConfig.contact.address}</p>
-          <p className="text-sm text-gray-400 mt-2">{storeConfig.contact.phone}</p>
-          <p className="text-sm text-gray-400">{storeConfig.contact.email}</p>
+
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              storeConfig.contact.address
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-sm text-gray-400 hover:text-white transition-colors leading-relaxed"
+          >
+            {storeConfig.contact.address}
+          </a>
+
+          <a
+            href={`tel:${storeConfig.contact.phone.replace(/\s+/g, "")}`}
+            className="block text-sm text-gray-400 hover:text-white transition-colors mt-2"
+          >
+            {storeConfig.contact.phone}
+          </a>
+
+          <a
+            href={`mailto:${storeConfig.contact.email}`}
+            className="block text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            {storeConfig.contact.email}
+          </a>
         </div>
 
         <nav aria-label="Footer navigation">
           <ul className="space-y-3">
-            <li><Link to="/shop" className="text-sm text-gray-400 hover:text-white transition-colors">{t("nav.shop")}</Link></li>
-            <li><Link to="/shop?category=prescription" className="text-sm text-gray-400 hover:text-white transition-colors">{t("nav.prescription")}</Link></li>
-            <li><Link to="/account" className="text-sm text-gray-400 hover:text-white transition-colors">{t("nav.account")}</Link></li>
+            <li>
+              <Link
+                to="/shop"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                {t("nav.shop")}
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/shop?category=prescription"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                {t("nav.prescription")}
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/account"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                {t("nav.account")}
+              </Link>
+            </li>
           </ul>
         </nav>
 
         <div>
-          <p className="text-xs uppercase tracking-widest mb-4 text-gray-500">{t("footer.contact")}</p>
+          <p className="text-xs uppercase tracking-widest mb-4 text-gray-500">
+            {t("footer.contact")}
+          </p>
+
           <div className="flex gap-4">
             {storeConfig.social.instagram && (
-              <a href={storeConfig.social.instagram} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white">Instagram</a>
+              <a
+                href={storeConfig.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                Instagram
+              </a>
             )}
+
             {storeConfig.social.facebook && (
-              <a href={storeConfig.social.facebook} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white">Facebook</a>
+              <a
+                href={storeConfig.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                Facebook
+              </a>
             )}
+
             {storeConfig.social.whatsapp && (
-              <a href={storeConfig.social.whatsapp} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white">WhatsApp</a>
+              <a
+                href={storeConfig.social.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                WhatsApp
+              </a>
             )}
           </div>
         </div>
@@ -44,7 +115,10 @@ export default function Footer() {
 
       <div className="border-t border-gray-800 py-6 text-center">
         <p className="text-xs text-gray-500 tracking-widest">
-          {t("footer.copyright", { year, storeName: storeConfig.storeName })}
+          {t("footer.copyright", {
+            year,
+            storeName: storeConfig.storeName,
+          })}
         </p>
       </div>
     </footer>
