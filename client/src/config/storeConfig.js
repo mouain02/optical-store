@@ -13,7 +13,7 @@ export default {
   defaultLanguage: "en",
 
   theme: {
-    primary: "#1a1a1a",
+    primary: "#000000",
     accent: "#b83109",
     promoBar: "#000000",
   },
