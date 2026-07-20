@@ -6,6 +6,22 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./index.css";
 import "./i18n";
+import storeConfig from "./config/storeConfig";
+
+document.documentElement.style.setProperty(
+  "--color-primary",
+  storeConfig.theme.primary
+);
+
+document.documentElement.style.setProperty(
+  "--color-accent",
+  storeConfig.theme.accent
+);
+
+document.documentElement.style.setProperty(
+  "--color-promo",
+  storeConfig.theme.promoBar
+);
 
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
@@ -21,6 +37,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import "./testimonials";
+
 function AppRoutes() {
   return (
     <Provider store={store}>
@@ -43,8 +60,12 @@ function AppRoutes() {
             <Route path="product/:slug" element={<ProductDetailPage />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
-            <Route path="order-confirmation" element={<OrderConfirmationPage />} />
+            <Route
+              path="order-confirmation"
+              element={<OrderConfirmationPage />}
+            />
           </Route>
+
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboardPage />} />
           </Route>
