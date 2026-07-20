@@ -55,7 +55,8 @@ export const getProducts = asyncHandler(async (req, res) => {
     .populate("brand", "name slug")
     .sort(sort)
     .skip((page - 1) * limit)
-    .limit(limit);
+    .limit(20)
+    .lean();
 
   res.json({ products, page, pages: Math.ceil(total / limit), total });
 });

@@ -81,6 +81,7 @@ export default function AdminDashboardPage() {
   });
   const [editingProductId, setEditingProductId] = useState(null);
   const [savingProduct, setSavingProduct] = useState(false);
+  const [productImages, setProductImages] = useState([]);
   const [savingUserId, setSavingUserId] = useState(null);
   const [feedback, setFeedback] = useState("");
 
@@ -130,11 +131,11 @@ export default function AdminDashboardPage() {
 
   const stats = dashboard?.stats
     ? [
-        { label: t("admin.stats.revenue"), value: formatPrice(dashboard.stats.revenue || 0) },
-        { label: t("admin.stats.orders"), value: dashboard.stats.orders || 0 },
-        { label: t("admin.stats.customers"), value: dashboard.stats.customers || 0 },
-        { label: t("admin.stats.products"), value: dashboard.stats.products || 0 },
-      ]
+      { label: t("admin.stats.revenue"), value: formatPrice(dashboard.stats.revenue || 0) },
+      { label: t("admin.stats.orders"), value: dashboard.stats.orders || 0 },
+      { label: t("admin.stats.customers"), value: dashboard.stats.customers || 0 },
+      { label: t("admin.stats.products"), value: dashboard.stats.products || 0 },
+    ]
     : [];
 
   const tabs = [
@@ -264,6 +265,7 @@ export default function AdminDashboardPage() {
 
   const resetProductDraft = () => {
     setEditingProductId(null);
+    setProductImages([]);
     setProductDraft({
       name: "",
       description: "",
@@ -330,9 +332,28 @@ export default function AdminDashboardPage() {
     };
 
     try {
-      const saved = editingProductId
-        ? await productService.update(editingProductId, payload)
-        : await productService.create(payload);
+      let saved;
+
+      if (editingProductId) {
+        saved = await productService.update(editingProductId, payload);
+      } else {
+        saved = await productService.create(payload);
+      }
+
+
+      // upload images after product creation/update
+      if (productImages.length > 0) {
+        const formData = new FormData();
+
+        productImages.forEach((image) => {
+          formData.append("images", image);
+        });
+
+        saved = await productService.uploadImages(
+          saved.slug,
+          formData
+        );
+      }
 
       setProducts((current) => {
         if (editingProductId) {
@@ -407,11 +428,10 @@ export default function AdminDashboardPage() {
             key={tab.key}
             type="button"
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 text-xs uppercase tracking-widest border rounded-full transition-colors ${
-              activeTab === tab.key
-                ? "bg-primary text-white border-primary"
-                : "border-gray-200 text-gray-600 hover:border-primary hover:text-primary"
-            }`}
+            className={`px-4 py-2 text-xs uppercase tracking-widest border rounded-full transition-colors ${activeTab === tab.key
+              ? "bg-primary text-white border-primary"
+              : "border-gray-200 text-gray-600 hover:border-primary hover:text-primary"
+              }`}
           >
             {tab.label}
           </button>
@@ -580,6 +600,24 @@ export default function AdminDashboardPage() {
                 <input className="input-field" value={productDraft.sizes} onChange={(e) => setProductDraft((c) => ({ ...c, sizes: e.target.value }))} />
               </Field>
             </div>
+            <Field label="Product Images">
+
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="input-field"
+                onChange={(e) =>
+                  setProductImages(Array.from(e.target.files))
+                }
+              />
+
+              {productImages.length > 0 && (
+                <p className="text-sm text-gray-500 mt-2">
+                  {productImages.length} image(s) selected
+                </p>
+              )}
+            </Field>
 
             <Field label="Description">
               <textarea className="input-field min-h-28" value={productDraft.description} onChange={(e) => setProductDraft((c) => ({ ...c, description: e.target.value }))} />
