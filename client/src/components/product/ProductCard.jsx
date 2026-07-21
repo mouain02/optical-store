@@ -16,7 +16,7 @@ export default function ProductCard({ product }) {
           alt={product.images?.[0]?.alt || product.name}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-120 group-hover:scale-[1.03]"
-          onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&q=80"; }}
+          onError={(e) => { e.target.src = "/placeholder-product.svg"; }}
         />
       </div>
       <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">

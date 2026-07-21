@@ -359,14 +359,19 @@ export default function AdminDashboardPage() {
             formData.append("images", image);
           });
 
-          await productService.uploadImages(
+          const uploadedImages = await productService.uploadImages(
             saved.slug,
             formData
           );
 
-          // Re-fetch the product to get the complete data with images
-          const refreshed = await productService.getBySlug(saved.slug);
-          saved = refreshed.product;
+          // Merge uploaded images into the saved product object directly
+          saved = {
+            ...saved,
+            images: [
+              ...(saved.images || []),
+              ...uploadedImages,
+            ],
+          };
         } catch (uploadError) {
           console.error("Image upload failed:", uploadError);
           showFeedback("warning", `Product saved but image upload failed: ${uploadError.response?.data?.message || uploadError.message}`);

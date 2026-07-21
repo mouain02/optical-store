@@ -93,8 +93,7 @@ export default function ProductDetailPage() {
               alt={images[selectedImage]?.alt || product.name}
               className="w-full h-full object-cover"
               onError={(e) => {
-                e.target.src =
-                  "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80";
+                e.target.src = "/placeholder-product.svg";
               }}
             />
           </div>
