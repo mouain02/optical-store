@@ -363,6 +363,10 @@ export default function AdminDashboardPage() {
             saved.slug,
             formData
           );
+
+          // Re-fetch the product to get the complete data with images
+          const refreshed = await productService.getBySlug(saved.slug);
+          saved = refreshed.product;
         } catch (uploadError) {
           console.error("Image upload failed:", uploadError);
           showFeedback("warning", `Product saved but image upload failed: ${uploadError.response?.data?.message || uploadError.message}`);
