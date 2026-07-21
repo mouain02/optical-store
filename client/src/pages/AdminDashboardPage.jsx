@@ -81,9 +81,10 @@ export default function AdminDashboardPage() {
   });
   const [editingProductId, setEditingProductId] = useState(null);
   const [savingProduct, setSavingProduct] = useState(false);
+  const [uploadingImages, setUploadingImages] = useState(false);
   const [productImages, setProductImages] = useState([]);
   const [savingUserId, setSavingUserId] = useState(null);
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState({ type: "", message: "" });
 
   useEffect(() => {
     let active = true;
@@ -306,15 +307,22 @@ export default function AdminDashboardPage() {
     });
   };
 
+  const showFeedback = (type, message) => {
+    setFeedback({ type, message });
+    if (type === "success") {
+      setTimeout(() => setFeedback({ type: "", message: "" }), 5000);
+    }
+  };
+
   const saveProduct = async (event) => {
     event.preventDefault();
     if (!productDraft.brand) {
-      setFeedback("Choose a brand before saving the product.");
+      showFeedback("error", "Choose a brand before saving the product.");
       return;
     }
 
     setSavingProduct(true);
-    setFeedback("");
+    setFeedback({ type: "", message: "" });
 
     const payload = {
       ...productDraft,
@@ -340,29 +348,41 @@ export default function AdminDashboardPage() {
         saved = await productService.create(payload);
       }
 
-
       // upload images after product creation/update
       if (productImages.length > 0) {
-        const formData = new FormData();
+        setUploadingImages(true);
 
-        productImages.forEach((image) => {
-          formData.append("images", image);
-        });
+        try {
+          const formData = new FormData();
 
-        saved = await productService.uploadImages(
-          saved.slug,
-          formData
-        );
+          productImages.forEach((image) => {
+            formData.append("images", image);
+          });
+
+          await productService.uploadImages(
+            saved.slug,
+            formData
+          );
+        } catch (uploadError) {
+          console.error("Image upload failed:", uploadError);
+          showFeedback("warning", `Product saved but image upload failed: ${uploadError.response?.data?.message || uploadError.message}`);
+        } finally {
+          setUploadingImages(false);
+        }
       }
 
       setProducts((current) => {
         if (editingProductId) {
-          return current.map((product) => (product._id === editingProductId ? saved : product));
+          return current.map((product) => (product._id === editingProductId ? { ...product, ...saved } : product));
         }
         return [saved, ...current];
       });
-      setFeedback(`Product ${editingProductId ? "updated" : "created"} in database.`);
+      showFeedback("success", `Product ${editingProductId ? "updated" : "created"} successfully!`);
       resetProductDraft();
+    } catch (error) {
+      console.error("Product save failed:", error);
+      const errorMessage = error.response?.data?.message || error.message || "Failed to save product";
+      showFeedback("error", errorMessage);
     } finally {
       setSavingProduct(false);
     }
@@ -419,7 +439,19 @@ export default function AdminDashboardPage() {
         <p className="text-gray-600">
           Manage users, products, orders, reviews, coupons, and brands from one place.
         </p>
-        {feedback && <p className="text-sm text-green-700 mt-4">{feedback}</p>}
+        {feedback.message && (
+          <div className={`mt-4 px-4 py-3 rounded text-sm font-medium ${
+            feedback.type === "success" ? "bg-green-50 text-green-800 border border-green-200" :
+            feedback.type === "error" ? "bg-red-50 text-red-800 border border-red-200" :
+            feedback.type === "warning" ? "bg-yellow-50 text-yellow-800 border border-yellow-200" :
+            "bg-green-50 text-green-800 border border-green-200"
+          }`}>
+            {feedback.type === "success" && "✓ "}
+            {feedback.type === "error" && "✗ "}
+            {feedback.type === "warning" && "⚠ "}
+            {feedback.message}
+          </div>
+        )}
       </section>
 
       <div className="flex flex-wrap gap-3 border-b border-gray-200 pb-4">
@@ -634,8 +666,8 @@ export default function AdminDashboardPage() {
               </label>
             </div>
 
-            <button type="submit" className="btn-primary" disabled={savingProduct}>
-              {savingProduct ? t("common.loading") : editingProductId ? t("common.save") : t("admin.addProduct")}
+            <button type="submit" className="btn-primary" disabled={savingProduct || uploadingImages}>
+              {uploadingImages ? "Uploading images..." : savingProduct ? "Saving product..." : editingProductId ? t("common.save") : t("admin.addProduct")}
             </button>
           </form>
 

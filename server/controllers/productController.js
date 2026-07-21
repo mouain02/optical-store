@@ -87,7 +87,18 @@ export const getProductBySlug = asyncHandler(async (req, res) => {
 });
 
 export const createProduct = asyncHandler(async (req, res) => {
-  const slug = slugify(req.body.name, { lower: true, strict: true });
+  let slug = slugify(req.body.name, { lower: true, strict: true });
+
+  // Handle duplicate slugs by appending a numeric suffix
+  const existingProduct = await Product.findOne({ slug });
+  if (existingProduct) {
+    let counter = 1;
+    while (await Product.findOne({ slug: `${slug}-${counter}` })) {
+      counter++;
+    }
+    slug = `${slug}-${counter}`;
+  }
+
   const product = await Product.create({ ...req.body, slug });
   res.status(201).json(product);
 });
