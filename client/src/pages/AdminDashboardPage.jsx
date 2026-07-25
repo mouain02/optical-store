@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import useAdminDashboard from "../hooks/useAdminDashboard";
 
-import Dashboard from "../components/admin/pages/Dashboard";
+import OverviewTab from "../components/admin/tabs/OverviewTab";
 import UsersTab from "../components/admin/tabs/UsersTab";
 import ProductsTab from "../components/admin/tabs/ProductsTab";
 import OrdersTab from "../components/admin/tabs/OrdersTab";
