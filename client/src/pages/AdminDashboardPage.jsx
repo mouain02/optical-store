@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import useAdminDashboard from "../hooks/useAdminDashboard";
 
-import OverviewTab from "../components/admin/tabs/OverviewTab";
+import Dashboard from "../components/admin/pages/Dashboard";
 import UsersTab from "../components/admin/tabs/UsersTab";
 import ProductsTab from "../components/admin/tabs/ProductsTab";
 import OrdersTab from "../components/admin/tabs/OrdersTab";
@@ -51,7 +51,7 @@ function AdminDashboardPage() {
 
     switch (activeTab) {
       case "overview":
-        return <OverviewTab {...props} />;
+        return <Dashboard />;
 
       case "users":
         return <UsersTab {...props} />;
