@@ -32,4 +32,104 @@ h1, h2, h3, h4, h5, h6 {
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
   }
+    /* ADMIN DASHBOARD */
+
+  .admin-dashboard-page {
+    @apply space-y-8;
+  }
+
+
+  .dashboard-title h1 {
+    @apply text-3xl font-semibold tracking-wide;
+  }
+
+
+  .dashboard-title p {
+    @apply text-gray-500 mt-2;
+  }
+
+
+  .stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6;
+  }
+
+
+  .stat-card {
+    @apply bg-white border border-gray-200 rounded-2xl p-6 transition duration-300;
+  }
+
+
+  .stat-card:hover {
+    @apply shadow-lg -translate-y-1;
+  }
+
+
+  .stat-card-top {
+    @apply flex items-center justify-between;
+  }
+
+
+  .stat-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center bg-orange-50 text-orange-500;
+  }
+
+
+  .stat-positive {
+    @apply text-green-600 text-sm font-medium;
+  }
+
+
+  .stat-negative {
+    @apply text-red-600 text-sm font-medium;
+  }
+
+
+  .stat-content {
+    @apply mt-6;
+  }
+
+
+  .stat-content p {
+    @apply text-gray-500 text-sm;
+  }
+
+
+  .stat-content h2 {
+    @apply text-3xl font-semibold mt-2;
+  }
+
+
+  .stat-content small {
+    @apply text-gray-400;
+  }
+
+
+  .dashboard-grid {
+    @apply grid grid-cols-1 xl:grid-cols-2 gap-6;
+  }
+
+
+  .dashboard-card {
+    @apply bg-white border border-gray-200 rounded-2xl p-6;
+  }
+
+
+  .dashboard-card-header {
+    @apply flex justify-between items-center mb-6;
+  }
+
+
+  .dashboard-card-header h2 {
+    @apply text-xl font-semibold;
+  }
+
+
+  .dashboard-card-header p {
+    @apply text-sm text-gray-500 mt-1;
+  }
+
+
+  .chart-container {
+    @apply w-full;
+  }
 }
