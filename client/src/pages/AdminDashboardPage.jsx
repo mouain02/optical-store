@@ -10,7 +10,7 @@ import ReviewsTab from "../components/admin/tabs/ReviewsTab";
 import CouponsTab from "../components/admin/tabs/CouponsTab";
 import BrandsTab from "../components/admin/tabs/BrandsTab";
 
-import Loader from "../../components/common/Loader";
+import Loader from "../components/common/Loader";
 
 const tabs = [
   { id: "overview", label: "Overview" },
