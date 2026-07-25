@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import {
   adminService,
@@ -9,151 +9,177 @@ import {
   reviewService,
 } from "../services";
 
-const initialStats = {
-  users: 0,
-  products: 0,
-  orders: 0,
-  reviews: 0,
-  coupons: 0,
-  brands: 0,
-};
 
 function useAdminDashboard() {
-  const [loading, setLoading] = useState(true);
-  const [actionLoading, setActionLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [coupons, setCoupons] = useState([]);
   const [brands, setBrands] = useState([]);
 
-  const [stats, setStats] = useState(initialStats);
+  const [loading, setLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
+
+  const [error, setError] = useState(null);
+
+
 
   const loadDashboard = useCallback(async () => {
+
     try {
+
       setLoading(true);
       setError(null);
 
+
       const [
-        usersResponse,
-        productsResponse,
-        ordersResponse,
-        reviewsResponse,
-        couponsResponse,
-        brandsResponse,
+        productsData,
+        usersData,
+        ordersData,
+        reviewsData,
+        couponsData,
+        brandsData,
       ] = await Promise.all([
+
+        productService.getAdminAll(),
+
         adminService.getUsers(),
-        productService.getProducts(),
-        orderService.getOrders(),
-        reviewService.getReviews(),
-        couponService.getCoupons(),
-        brandService.getBrands(),
+
+        orderService.getAdminAll(),
+
+        reviewService.getAdminAll(),
+
+        couponService.getAll(),
+
+        brandService.getAll(),
+
       ]);
 
-      const usersData = usersResponse?.data || usersResponse || [];
-      const productsData =
-        productsResponse?.data || productsResponse || [];
-      const ordersData = ordersResponse?.data || ordersResponse || [];
-      const reviewsData = reviewsResponse?.data || reviewsResponse || [];
-      const couponsData = couponsResponse?.data || couponsResponse || [];
-      const brandsData = brandsResponse?.data || brandsResponse || [];
 
-      setUsers(usersData);
-      setProducts(productsData);
-      setOrders(ordersData);
-      setReviews(reviewsData);
-      setCoupons(couponsData);
-      setBrands(brandsData);
-
-      setStats({
-        users: usersData.length,
-        products: productsData.length,
-        orders: ordersData.length,
-        reviews: reviewsData.length,
-        coupons: couponsData.length,
-        brands: brandsData.length,
-      });
-    } catch (err) {
-      console.error("Dashboard loading error:", err);
-      setError(
-        err?.response?.data?.message ||
-          err.message ||
-          "Failed to load dashboard data"
+      setProducts(
+        productsData.products || productsData || []
       );
+
+      setUsers(
+        usersData.users || usersData || []
+      );
+
+      setOrders(
+        ordersData.orders || ordersData || []
+      );
+
+      setReviews(
+        reviewsData.reviews || reviewsData || []
+      );
+
+      setCoupons(
+        couponsData.coupons || couponsData || []
+      );
+
+      setBrands(
+        brandsData.brands || brandsData || []
+      );
+
+
+    } catch (err) {
+
+      console.error(err);
+
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        "Dashboard loading failed"
+      );
+
     } finally {
+
       setLoading(false);
+
     }
+
   }, []);
 
-  useEffect(() => {
-    loadDashboard();
-  }, [loadDashboard]);
 
 
-  // PRODUCTS
+  const createProduct = async (data) => {
 
-  const createProduct = async (formData) => {
     try {
+
       setActionLoading(true);
 
-      const response = await productService.createProduct(formData);
+      await productService.create(data);
 
       await loadDashboard();
 
       return {
         success: true,
-        data: response,
-        message: "Product added successfully",
+        message: "Product created successfully",
       };
+
+
     } catch (err) {
-      console.error(err);
 
       return {
         success: false,
         message:
-          err?.response?.data?.message ||
+          err.response?.data?.message ||
           "Failed to create product",
       };
+
     } finally {
+
       setActionLoading(false);
+
     }
+
   };
+
 
 
   const updateProduct = async (id, data) => {
+
     try {
+
       setActionLoading(true);
 
-      const response = await productService.updateProduct(id, data);
+      await productService.update(id, data);
 
       await loadDashboard();
 
       return {
         success: true,
-        data: response,
         message: "Product updated successfully",
       };
+
+
     } catch (err) {
+
       return {
         success: false,
         message:
-          err?.response?.data?.message ||
+          err.response?.data?.message ||
           "Failed to update product",
       };
+
     } finally {
+
       setActionLoading(false);
+
     }
+
   };
 
 
+
   const deleteProduct = async (id) => {
+
     try {
+
       setActionLoading(true);
 
-      await productService.deleteProduct(id);
+      await productService.remove(id);
 
       await loadDashboard();
 
@@ -161,48 +187,57 @@ function useAdminDashboard() {
         success: true,
         message: "Product deleted successfully",
       };
+
+
     } catch (err) {
+
       return {
         success: false,
         message:
-          err?.response?.data?.message ||
+          err.response?.data?.message ||
           "Failed to delete product",
       };
+
     } finally {
+
       setActionLoading(false);
+
     }
+
   };
 
-
-  // GENERIC REFRESH
-
-  const refresh = async () => {
-    await loadDashboard();
-  };
 
 
   return {
-    loading,
-    actionLoading,
-    error,
 
-    users,
     products,
+    users,
     orders,
     reviews,
     coupons,
     brands,
 
-    stats,
+    loading,
+    actionLoading,
 
-    refresh,
+    error,
+
+    loadDashboard,
 
     createProduct,
     updateProduct,
     deleteProduct,
 
-    loadDashboard,
+    setProducts,
+    setUsers,
+    setOrders,
+    setReviews,
+    setCoupons,
+    setBrands,
+
   };
+
 }
+
 
 export default useAdminDashboard;
