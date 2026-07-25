@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import useAdminDashboard from "../hooks/useAdminDashboard";
 
-import OverviewTab from "./tabs/OverviewTab";
-import UsersTab from "./tabs/UsersTab";
-import ProductsTab from "./tabs/ProductsTab";
-import OrdersTab from "./tabs/OrdersTab";
-import ReviewsTab from "./tabs/ReviewsTab";
-import CouponsTab from "./tabs/CouponsTab";
-import BrandsTab from "./tabs/BrandsTab";
+import OverviewTab from "./admin/tabs/OverviewTab";
+import UsersTab from "./admin/tabs/UsersTab";
+import ProductsTab from "./admin/tabs/ProductsTab";
+import OrdersTab from "./admin/tabs/OrdersTab";
+import ReviewsTab from "./admin/tabs/ReviewsTab";
+import CouponsTab from "./admin/tabs/CouponsTab";
+import BrandsTab from "./admin/tabs/BrandsTab";
 
 import Loader from "../../components/common/Loader";
 
