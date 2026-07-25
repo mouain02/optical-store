@@ -205,10 +205,19 @@ function useAdminDashboard() {
     }
 
   };
+  const stats = {
+  users: users.length,
+  products: products.length,
+  orders: orders.length,
+  reviews: reviews.length,
+  brands: brands.length,
+  coupons: coupons.length,
+};
 
 
 
-  return {
+return {
+  stats,
 
   dashboard: {
     products,
@@ -228,15 +237,14 @@ function useAdminDashboard() {
 
   loading,
   actionLoading,
-
   error,
 
+  refresh: loadDashboard,
   loadDashboard,
 
   createProduct,
   updateProduct,
   deleteProduct,
-
 };
 
 }
