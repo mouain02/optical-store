@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import useAdminDashboard from "../../hooks/useAdminDashboard";
+import useAdminDashboard from "../hooks/useAdminDashboard";
 
 import OverviewTab from "./tabs/OverviewTab";
 import UsersTab from "./tabs/UsersTab";
