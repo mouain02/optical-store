@@ -1,5 +1,5 @@
-import Field from "../Field";
-import Section from "../Section";
+import Field from "./Field";
+import Section from "./Section";
 
 
 function OrdersTab({

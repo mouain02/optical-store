@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Field from "../Field";
-import Section from "../Section";
+import Field from "./Field";
+import Section from "./Section";
 
 function ProductsTab({
   products,
