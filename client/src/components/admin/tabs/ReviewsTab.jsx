@@ -1,4 +1,4 @@
-import Section from "../../../components/admin/Section";
+import Section from "../Section";
 
 
 function ReviewsTab({
