@@ -210,32 +210,34 @@ function useAdminDashboard() {
 
   return {
 
+  dashboard: {
     products,
     users,
     orders,
     reviews,
     coupons,
     brands,
+  },
 
-    loading,
-    actionLoading,
+  products,
+  users,
+  orders,
+  reviews,
+  coupons,
+  brands,
 
-    error,
+  loading,
+  actionLoading,
 
-    loadDashboard,
+  error,
 
-    createProduct,
-    updateProduct,
-    deleteProduct,
+  loadDashboard,
 
-    setProducts,
-    setUsers,
-    setOrders,
-    setReviews,
-    setCoupons,
-    setBrands,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 
-  };
+};
 
 }
 
