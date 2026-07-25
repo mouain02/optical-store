@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Field from "../../../components/admin/Field";
-import Section from "../../../components/admin/Section";
+import Field from "../Field";
+import Section from "../Section";
 
 function ProductsTab({
   products,

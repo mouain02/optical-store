@@ -1,5 +1,5 @@
-import { formatPrice } from "../../../utils/helpers";
-import Section from "../../../components/admin/Section";
+import Field from "../Field";
+import Section from "../Section";
 
 
 function OrdersTab({
