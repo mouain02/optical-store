@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import useAdminDashboard from "../hooks/useAdminDashboard";
 
 import AdminLayout from "../components/admin/layout/AdminLayout";
@@ -14,61 +16,14 @@ import Loader from "../components/common/Loader";
 
 
 
-function AdminDashboardPage() {
 
 
-  const dashboard = useAdminDashboard();
-
-
-
-  if (dashboard.loading) {
-    return <Loader />;
-  }
-
-
-
-  if (dashboard.error) {
-
-    return (
-
-      <div className="p-10">
-
-        <h2 className="text-xl font-bold">
-          Dashboard Error
-        </h2>
-
-        <p>
-          {dashboard.error}
-        </p>
-
-
-        <button
-          onClick={dashboard.refresh}
-          className="
-            mt-5
-            px-5
-            py-2
-            bg-black
-            text-white
-          "
-        >
-          Retry
-        </button>
-
-
-      </div>
-
-    );
-
-  }
-
-
-
+function DashboardOverview({ dashboard }) {
 
 
   return (
 
-    <AdminLayout>
+    <>
 
 
       <DashboardHeader
@@ -80,6 +35,7 @@ function AdminDashboardPage() {
       <KPIGrid
         stats={dashboard.stats}
       />
+
 
 
 
@@ -95,12 +51,13 @@ function AdminDashboardPage() {
 
 
         <RevenueChart
-          data={dashboard.monthlyRevenue}
+          data={dashboard.monthlyRevenue || []}
         />
 
 
+
         <OrdersChart
-          orders={dashboard.orders}
+          orders={dashboard.monthlyRevenue || []}
         />
 
 
@@ -121,6 +78,7 @@ function AdminDashboardPage() {
       >
 
 
+
         <div
           className="
             xl:col-span-2
@@ -128,15 +86,16 @@ function AdminDashboardPage() {
         >
 
           <RecentOrders
-            orders={dashboard.recentOrders}
+            orders={dashboard.recentOrders || []}
           />
 
         </div>
 
 
 
+
         <LowStockProducts
-          products={dashboard.products}
+          products={dashboard.products || []}
         />
 
 
@@ -146,25 +105,306 @@ function AdminDashboardPage() {
 
 
 
-      <div
-        className="
-          mt-6
-        "
-      >
+      <div className="mt-6">
+
 
         <BestSellers
-          products={dashboard.bestSellers}
+          products={dashboard.bestSellers || []}
         />
+
 
       </div>
 
 
 
-    </AdminLayout>
+    </>
 
   );
 
 }
+
+
+
+
+
+
+
+function Placeholder({ title }) {
+
+
+  return (
+
+    <div
+
+      className="
+        bg-white
+        rounded-2xl
+        border
+        border-gray-200
+        p-10
+      "
+
+    >
+
+      <h1
+        className="
+          text-2xl
+          font-semibold
+        "
+      >
+
+        {title}
+
+      </h1>
+
+
+      <p
+        className="
+          mt-3
+          text-gray-400
+        "
+      >
+
+        Management section coming next.
+
+      </p>
+
+
+    </div>
+
+  );
+
+}
+
+
+
+
+
+
+
+
+function AdminDashboardPage() {
+
+
+  const [activeSection, setActiveSection] = useState(
+    "dashboard"
+  );
+
+
+
+  const dashboard = useAdminDashboard();
+
+
+
+
+
+  if (dashboard.loading) {
+
+    return <Loader />;
+
+  }
+
+
+
+
+
+
+  if (dashboard.error) {
+
+
+    return (
+
+      <div className="p-10">
+
+
+        <h2
+          className="
+            text-xl
+            font-bold
+          "
+        >
+
+          Dashboard Error
+
+        </h2>
+
+
+
+        <p>
+
+          {dashboard.error}
+
+        </p>
+
+
+
+
+        <button
+
+          onClick={dashboard.refresh}
+
+          className="
+            mt-5
+            px-5
+            py-2
+            bg-black
+            text-white
+          "
+
+        >
+
+          Retry
+
+        </button>
+
+
+      </div>
+
+    );
+
+  }
+
+
+
+
+
+
+
+  const renderContent = () => {
+
+
+    switch(activeSection) {
+
+
+      case "dashboard":
+
+        return (
+
+          <DashboardOverview
+            dashboard={dashboard}
+          />
+
+        );
+
+
+
+      case "products":
+
+        return (
+
+          <Placeholder
+            title="Products Management"
+          />
+
+        );
+
+
+
+      case "orders":
+
+        return (
+
+          <Placeholder
+            title="Orders Management"
+          />
+
+        );
+
+
+
+      case "customers":
+
+        return (
+
+          <Placeholder
+            title="Customers Management"
+          />
+
+        );
+
+
+
+      case "reviews":
+
+        return (
+
+          <Placeholder
+            title="Reviews Management"
+          />
+
+        );
+
+
+
+      case "brands":
+
+        return (
+
+          <Placeholder
+            title="Brands Management"
+          />
+
+        );
+
+
+
+      case "coupons":
+
+        return (
+
+          <Placeholder
+            title="Coupons Management"
+          />
+
+        );
+
+
+
+      default:
+
+        return (
+
+          <DashboardOverview
+            dashboard={dashboard}
+          />
+
+        );
+
+    }
+
+
+  };
+
+
+
+
+
+
+
+
+
+  return (
+
+
+    <AdminLayout
+
+      activeSection={activeSection}
+
+      setActiveSection={setActiveSection}
+
+    >
+
+
+      {renderContent()}
+
+
+    </AdminLayout>
+
+
+  );
+
+}
+
 
 
 export default AdminDashboardPage;

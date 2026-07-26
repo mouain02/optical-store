@@ -1,41 +1,69 @@
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
+
 function AdminLayout({
-  title,
   children,
+  activeSection,
+  setActiveSection,
 }) {
+
+
   return (
-    <div className="min-h-screen bg-[#F7F7F5] flex">
 
-      {/* SIDEBAR */}
-
-      <Sidebar />
-
-
-
-      {/* MAIN */}
-
-      <div className="flex-1 flex flex-col min-w-0">
-
-        <Topbar title={title} />
+    <div
+      className="
+        min-h-screen
+        bg-[#f8f7f5]
+        flex
+      "
+    >
 
 
+      <Sidebar
 
-        <main className="flex-1 overflow-y-auto">
+        activeSection={activeSection}
 
-          <div className="max-w-[1700px] mx-auto px-8 py-8">
+        setActiveSection={setActiveSection}
 
-            {children}
+      />
 
-          </div>
+
+
+      <div
+        className="
+          flex-1
+          flex
+          flex-col
+        "
+      >
+
+
+        <Topbar />
+
+
+
+        <main
+          className="
+            p-6
+          "
+        >
+
+          {children}
 
         </main>
 
+
+
       </div>
 
+
+
     </div>
+
   );
+
 }
+
 
 export default AdminLayout;

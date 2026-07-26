@@ -12,27 +12,43 @@ import { formatPrice } from "../../../utils/helpers";
 
 
 
-function RevenueChart({
-  data = [],
-}) {
+function RevenueChart({ data = [] }) {
 
 
-  const chartData = data.map((item)=>({
 
-    month: new Date(
-      item._id + "-01"
-    ).toLocaleDateString(
-      "en-US",
-      {
-        month: "short",
-      }
-    ),
+  const chartData = data
+    .filter((item) => item?._id)
+    .map((item) => {
 
-    revenue: item.revenue,
 
-    orders: item.orders,
+      const date = new Date(
+        `${item._id}-01`
+      );
 
-  }));
+
+      return {
+
+        month: date.toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+          }
+        ),
+
+
+        revenue:
+          Number(item.revenue) || 0,
+
+
+        orders:
+          Number(item.orders) || 0,
+
+      };
+
+
+    });
+
+
 
 
 
@@ -50,13 +66,11 @@ function RevenueChart({
     >
 
 
-      {/* HEADER */}
-
       <div
         className="
           flex
-          items-start
           justify-between
+          items-start
           mb-8
         "
       >
@@ -89,20 +103,18 @@ function RevenueChart({
 
 
 
-        <div
+        <span
           className="
             px-4
             py-2
-            rounded-xl
             bg-gray-100
+            rounded-xl
             text-sm
             text-gray-600
           "
         >
-
           Last 12 months
-
-        </div>
+        </span>
 
 
       </div>
@@ -110,8 +122,6 @@ function RevenueChart({
 
 
 
-
-      {/* CHART */}
 
       <div
         className="
@@ -120,138 +130,152 @@ function RevenueChart({
       >
 
 
-        {
-          chartData.length === 0 ? (
+      {
+        chartData.length === 0 ? (
 
-            <div
-              className="
-                h-full
-                flex
-                items-center
-                justify-center
-                text-gray-400
-              "
+          <div
+            className="
+              h-full
+              flex
+              items-center
+              justify-center
+              text-gray-400
+            "
+          >
+
+            No revenue data available
+
+          </div>
+
+
+        ) : (
+
+
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+          >
+
+
+            <AreaChart
+              data={chartData}
             >
 
-              No revenue data available
-
-            </div>
 
 
-          ) : (
+              <defs>
+
+                <linearGradient
+                  id="revenueGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+
+                  <stop
+                    offset="0%"
+                    stopColor="#C4A574"
+                    stopOpacity={0.35}
+                  />
 
 
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-            >
+                  <stop
+                    offset="100%"
+                    stopColor="#C4A574"
+                    stopOpacity={0}
+                  />
 
 
-              <AreaChart
-                data={chartData}
-              >
+                </linearGradient>
 
 
-                <defs>
-
-                  <linearGradient
-                    id="revenueGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-
-                    <stop
-                      offset="0%"
-                      stopColor="#C4A574"
-                      stopOpacity={0.35}
-                    />
-
-
-                    <stop
-                      offset="100%"
-                      stopColor="#C4A574"
-                      stopOpacity={0}
-                    />
-
-                  </linearGradient>
-
-                </defs>
+              </defs>
 
 
 
 
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  vertical={false}
-                />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+              />
 
 
 
-                <XAxis
 
-                  dataKey="month"
+              <XAxis
 
-                  axisLine={false}
+                dataKey="month"
 
-                  tickLine={false}
+                axisLine={false}
 
-                />
+                tickLine={false}
 
-
-
-                <YAxis
-
-                  axisLine={false}
-
-                  tickLine={false}
-
-                  tickFormatter={(value)=>
-                    `${value / 1000}k`
-                  }
-
-                />
+              />
 
 
 
-                <Tooltip
 
-                  formatter={(value)=>[
-                    formatPrice(value),
-                    "Revenue",
-                  ]}
+              <YAxis
 
-                />
+                axisLine={false}
 
+                tickLine={false}
 
+                tickFormatter={(value)=>
+                  `${Math.round(value / 1000)}k`
+                }
 
-                <Area
-
-                  type="monotone"
-
-                  dataKey="revenue"
-
-                  stroke="#C4A574"
-
-                  strokeWidth={3}
-
-                  fill="url(#revenueGradient)"
-
-                />
+              />
 
 
-              </AreaChart>
 
 
-            </ResponsiveContainer>
+              <Tooltip
+
+                formatter={(value)=>[
+
+                  formatPrice(value),
+
+                  "Revenue"
+
+                ]}
+
+              />
 
 
-          )
-        }
+
+
+              <Area
+
+                type="monotone"
+
+                dataKey="revenue"
+
+                stroke="#C4A574"
+
+                strokeWidth={3}
+
+                fill="url(#revenueGradient)"
+
+              />
+
+
+
+            </AreaChart>
+
+
+          </ResponsiveContainer>
+
+
+        )
+
+      }
+
 
 
       </div>
+
 
 
     </div>

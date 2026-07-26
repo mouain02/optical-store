@@ -1,69 +1,84 @@
-import {
-  AlertTriangle,
-  Package,
-} from "lucide-react";
+function LowStockProducts({ products = [] }) {
 
 
 
-function LowStockProducts({
-  products = [],
-}) {
+  const lowStock = products
+    .filter((product) => {
+
+      const stock =
+        product.stock
+        ??
+        product.quantity
+        ??
+        0;
 
 
-  const lowStock = products.filter(
-    (product) =>
-      (product.stock ?? 0) <= 5
-  );
+      return stock <= 5;
+
+    })
+    .slice(0, 5);
+
+
 
 
 
   return (
 
     <div
+
       className="
         bg-white
         rounded-2xl
         border
         border-gray-200
-        shadow-sm
         p-6
+        shadow-sm
       "
+
     >
 
 
-      {/* HEADER */}
 
       <div
+
         className="
           flex
-          items-start
           justify-between
+          items-center
           mb-6
         "
-      >
 
+      >
 
         <div>
 
           <h2
+
             className="
               text-xl
               font-semibold
               text-gray-900
             "
+
           >
+
             Low Stock
+
           </h2>
 
 
           <p
+
             className="
               text-sm
               text-gray-400
               mt-1
             "
+
           >
-            Products needing attention
+
+            Products requiring attention
+
           </p>
 
 
@@ -71,25 +86,29 @@ function LowStockProducts({
 
 
 
-        <div
+        <span
+
           className="
-            w-11
-            h-11
-            rounded-xl
-            bg-red-50
-            text-red-500
-            flex
-            items-center
-            justify-center
+            px-3
+            py-1
+            rounded-full
+            bg-red-100
+            text-red-600
+            text-xs
+            uppercase
+            tracking-wide
           "
+
         >
 
-          <AlertTriangle size={22}/>
+          Alert
 
-        </div>
+        </span>
 
 
       </div>
+
+
 
 
 
@@ -100,24 +119,16 @@ function LowStockProducts({
 
 
           <div
+
             className="
-              py-10
-              flex
-              flex-col
-              items-center
-              justify-center
+              py-12
+              text-center
               text-gray-400
-              gap-3
             "
+
           >
 
-            <Package size={35}/>
-
-
-            <p>
-              Stock levels are healthy
-            </p>
-
+            Inventory is healthy
 
           </div>
 
@@ -126,16 +137,16 @@ function LowStockProducts({
 
 
           <div
+
             className="
-              space-y-3
+              space-y-4
             "
+
           >
 
 
             {
-              lowStock
-              .slice(0,5)
-              .map((product)=>(
+              lowStock.map((product)=>(
 
 
                 <div
@@ -144,13 +155,11 @@ function LowStockProducts({
 
                   className="
                     flex
-                    items-center
                     justify-between
+                    items-center
                     p-4
                     rounded-xl
-                    bg-red-50/50
-                    border
-                    border-red-100
+                    bg-gray-50
                   "
 
                 >
@@ -161,24 +170,29 @@ function LowStockProducts({
 
 
                     <h3
+
                       className="
                         font-medium
                         text-gray-900
                       "
+
                     >
 
-                      {product.name}
+                      {
+                        product.name
+                      }
+
 
                     </h3>
 
 
-
                     <p
+
                       className="
-                        text-xs
-                        text-gray-400
-                        mt-1
+                        text-sm
+                        text-gray-500
                       "
+
                     >
 
                       {
@@ -188,6 +202,7 @@ function LowStockProducts({
                         ||
                         "No brand"
                       }
+
 
                     </p>
 
@@ -199,26 +214,42 @@ function LowStockProducts({
 
 
                   <div
+
                     className="
                       text-right
                     "
+
                   >
 
-                    <span
+                    <p
+
                       className="
-                        inline-flex
-                        px-3
-                        py-1
-                        rounded-full
-                        text-xs
-                        font-medium
-                        bg-red-100
                         text-red-600
+                        font-semibold
                       "
+
                     >
 
-                      {product.stock ?? 0}
-                      {" "}
+                      {
+                        product.stock
+                        ??
+                        product.quantity
+                        ??
+                        0
+                      }
+
+                    </p>
+
+
+                    <span
+
+                      className="
+                        text-xs
+                        text-gray-400
+                      "
+
+                    >
+
                       left
 
                     </span>
@@ -228,10 +259,12 @@ function LowStockProducts({
 
 
 
+
                 </div>
 
 
               ))
+
             }
 
 
@@ -239,6 +272,7 @@ function LowStockProducts({
 
 
         )
+
       }
 
 
@@ -248,6 +282,7 @@ function LowStockProducts({
   );
 
 }
+
 
 
 export default LowStockProducts;

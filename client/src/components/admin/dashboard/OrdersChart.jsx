@@ -1,91 +1,47 @@
 import {
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
-  Legend,
 } from "recharts";
 
 
 
-const COLORS = [
-  "#C4A574",
-  "#111827",
-  "#6B7280",
-  "#16A34A",
-  "#DC2626",
-];
+function OrdersChart({ orders = [] }) {
 
 
 
-function OrdersChart({
-  orders = [],
-}) {
+  const chartData = orders
+    .filter((item) => item?._id)
+    .map((item) => {
 
 
-  const statusCount = {
-
-    pending: 0,
-
-    processing: 0,
-
-    shipped: 0,
-
-    delivered: 0,
-
-    cancelled: 0,
-
-  };
+      const date = new Date(
+        `${item._id}-01`
+      );
 
 
+      return {
 
-  orders.forEach((order)=>{
-
-    const status =
-      order.status?.toLowerCase();
-
-
-    if(statusCount[status] !== undefined){
-
-      statusCount[status]++;
-
-    }
-
-  });
+        month: date.toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+          }
+        ),
 
 
+        orders:
+          Number(item.orders) || 0,
 
-  const chartData = [
+      };
 
-    {
-      name:"Pending",
-      value:statusCount.pending,
-    },
 
-    {
-      name:"Processing",
-      value:statusCount.processing,
-    },
+    });
 
-    {
-      name:"Shipped",
-      value:statusCount.shipped,
-    },
-
-    {
-      name:"Delivered",
-      value:statusCount.delivered,
-    },
-
-    {
-      name:"Cancelled",
-      value:statusCount.cancelled,
-    },
-
-  ].filter(
-    item => item.value > 0
-  );
 
 
 
@@ -93,6 +49,7 @@ function OrdersChart({
   return (
 
     <div
+
       className="
         bg-white
         rounded-2xl
@@ -100,12 +57,17 @@ function OrdersChart({
         border-gray-200
         p-6
         shadow-sm
-        h-full
       "
+
     >
 
 
-      <div className="mb-6">
+
+      <div
+        className="
+          mb-8
+        "
+      >
 
         <h2
           className="
@@ -114,7 +76,9 @@ function OrdersChart({
             text-gray-900
           "
         >
+
           Orders Analytics
+
         </h2>
 
 
@@ -125,7 +89,9 @@ function OrdersChart({
             mt-1
           "
         >
-          Order status distribution
+
+          Monthly order activity
+
         </p>
 
 
@@ -137,7 +103,7 @@ function OrdersChart({
 
       <div
         className="
-          h-[320px]
+          h-[350px]
         "
       >
 
@@ -145,7 +111,9 @@ function OrdersChart({
         {
           chartData.length === 0 ? (
 
+
             <div
+
               className="
                 h-full
                 flex
@@ -153,9 +121,10 @@ function OrdersChart({
                 justify-center
                 text-gray-400
               "
+
             >
 
-              No orders available
+              No order data available
 
             </div>
 
@@ -169,47 +138,43 @@ function OrdersChart({
             >
 
 
-              <PieChart>
+              <BarChart
+
+                data={chartData}
+
+              >
 
 
-                <Pie
 
-                  data={chartData}
+                <CartesianGrid
 
-                  dataKey="value"
+                  strokeDasharray="3 3"
 
-                  nameKey="name"
+                  vertical={false}
 
-                  cx="50%"
-
-                  cy="50%"
-
-                  innerRadius={75}
-
-                  outerRadius={110}
-
-                  paddingAngle={4}
-
-                >
+                />
 
 
-                  {
-                    chartData.map(
-                      (entry,index)=>(
-                        
-                        <Cell
-                          key={entry.name}
-                          fill={
-                            COLORS[index % COLORS.length]
-                          }
-                        />
 
-                      )
-                    )
-                  }
+                <XAxis
+
+                  dataKey="month"
+
+                  axisLine={false}
+
+                  tickLine={false}
+
+                />
 
 
-                </Pie>
+
+                <YAxis
+
+                  axisLine={false}
+
+                  tickLine={false}
+
+                />
 
 
 
@@ -217,16 +182,23 @@ function OrdersChart({
 
 
 
-                <Legend
+                <Bar
 
-                  verticalAlign="bottom"
+                  dataKey="orders"
 
-                  height={36}
+                  fill="#1a1a1a"
+
+                  radius={[
+                    8,
+                    8,
+                    0,
+                    0
+                  ]}
 
                 />
 
 
-              </PieChart>
+              </BarChart>
 
 
             </ResponsiveContainer>
@@ -236,7 +208,9 @@ function OrdersChart({
         }
 
 
+
       </div>
+
 
 
     </div>
@@ -244,6 +218,7 @@ function OrdersChart({
   );
 
 }
+
 
 
 export default OrdersChart;
