@@ -24,7 +24,6 @@ document.documentElement.style.setProperty(
 );
 
 import MainLayout from "./layouts/MainLayout";
-import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -66,9 +65,7 @@ function AppRoutes() {
             />
           </Route>
 
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboardPage />} />
-          </Route>
+          <Route path="/admin" element={<AdminDashboardPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
