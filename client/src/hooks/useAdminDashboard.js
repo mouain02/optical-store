@@ -1,253 +1,381 @@
-import { useCallback, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+
 
 import {
   adminService,
+  productService,
   brandService,
   couponService,
-  orderService,
-  productService,
   reviewService,
+  orderService,
 } from "../services";
+
 
 
 function useAdminDashboard() {
 
+
+  const [stats, setStats] = useState({
+
+    users: 0,
+
+    products: 0,
+
+    orders: 0,
+
+    reviews: 0,
+
+    brands: 0,
+
+    coupons: 0,
+
+    revenue: 0,
+
+  });
+
+
+
   const [products, setProducts] = useState([]);
+
   const [users, setUsers] = useState([]);
+
   const [orders, setOrders] = useState([]);
+
   const [reviews, setReviews] = useState([]);
-  const [coupons, setCoupons] = useState([]);
+
   const [brands, setBrands] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  const [coupons, setCoupons] = useState([]);
+
+
+
+  const [recentOrders, setRecentOrders] = useState([]);
+
+  const [monthlyRevenue, setMonthlyRevenue] = useState([]);
+
+  const [bestSellers, setBestSellers] = useState([]);
+
+
+
+  const [loading, setLoading] = useState(true);
+
   const [actionLoading, setActionLoading] = useState(false);
 
   const [error, setError] = useState(null);
 
 
 
-  const loadDashboard = useCallback(async () => {
+
+
+  const loadDashboard = useCallback(async()=>{
+
 
     try {
 
+
       setLoading(true);
+
       setError(null);
 
 
+
       const [
+
+        dashboardData,
+
         productsData,
+
         usersData,
+
         ordersData,
+
         reviewsData,
-        couponsData,
+
         brandsData,
+
+        couponsData,
+
+
       ] = await Promise.all([
+
+
+        adminService.getDashboard(),
+
 
         productService.getAdminAll(),
 
+
         adminService.getUsers(),
+
 
         orderService.getAdminAll(),
 
+
         reviewService.getAdminAll(),
+
+
+        brandService.getAll(),
+
 
         couponService.getAll(),
 
-        brandService.getAll(),
 
       ]);
 
 
-      setProducts(
-        productsData.products || productsData || []
+
+
+
+      /*
+        Analytics data
+      */
+
+
+      setStats({
+
+        users:
+          dashboardData?.stats?.customers
+          ||
+          dashboardData?.stats?.users
+          ||
+          0,
+
+
+        products:
+          dashboardData?.stats?.products
+          ||
+          0,
+
+
+        orders:
+          dashboardData?.stats?.orders
+          ||
+          0,
+
+
+        revenue:
+          dashboardData?.stats?.revenue
+          ||
+          0,
+
+
+        reviews:
+          reviewsData?.length
+          ||
+          reviewsData?.reviews?.length
+          ||
+          0,
+
+
+        brands:
+          brandsData?.length
+          ||
+          brandsData?.brands?.length
+          ||
+          0,
+
+
+        coupons:
+          couponsData?.length
+          ||
+          couponsData?.coupons?.length
+          ||
+          0,
+
+      });
+
+
+
+
+
+
+      setRecentOrders(
+        dashboardData?.recentOrders || []
       );
+
+
+
+      setMonthlyRevenue(
+        dashboardData?.monthlyRevenue || []
+      );
+
+
+
+      setBestSellers(
+        dashboardData?.bestSellers || []
+      );
+
+
+
+
+
+
+
+      /*
+        Tables data
+      */
+
+
+      setProducts(
+        productsData?.products
+        ||
+        productsData
+        ||
+        []
+      );
+
+
 
       setUsers(
-        usersData.users || usersData || []
+        usersData?.users
+        ||
+        usersData
+        ||
+        []
       );
+
+
 
       setOrders(
-        ordersData.orders || ordersData || []
+        ordersData?.orders
+        ||
+        ordersData
+        ||
+        []
       );
+
+
 
       setReviews(
-        reviewsData.reviews || reviewsData || []
+        reviewsData?.reviews
+        ||
+        reviewsData
+        ||
+        []
       );
 
-      setCoupons(
-        couponsData.coupons || couponsData || []
-      );
+
 
       setBrands(
-        brandsData.brands || brandsData || []
+        brandsData?.brands
+        ||
+        brandsData
+        ||
+        []
       );
 
 
-    } catch (err) {
 
-      console.error(err);
+      setCoupons(
+        couponsData?.coupons
+        ||
+        couponsData
+        ||
+        []
+      );
+
+
+
+
+    }
+
+    catch(err){
+
+
+      console.error(
+        "Dashboard error:",
+        err
+      );
+
 
       setError(
-        err.response?.data?.message ||
-        err.message ||
+
+        err.response?.data?.message
+        ||
+        err.message
+        ||
         "Dashboard loading failed"
+
       );
 
-    } finally {
+
+    }
+
+    finally{
 
       setLoading(false);
 
     }
 
-  }, []);
+
+
+  },[]);
 
 
 
-  const createProduct = async (data) => {
-
-    try {
-
-      setActionLoading(true);
-
-      await productService.create(data);
-
-      await loadDashboard();
-
-      return {
-        success: true,
-        message: "Product created successfully",
-      };
-
-
-    } catch (err) {
-
-      return {
-        success: false,
-        message:
-          err.response?.data?.message ||
-          "Failed to create product",
-      };
-
-    } finally {
-
-      setActionLoading(false);
-
-    }
-
-  };
 
 
 
-  const updateProduct = async (id, data) => {
+  useEffect(()=>{
 
-    try {
+    loadDashboard();
 
-      setActionLoading(true);
-
-      await productService.update(id, data);
-
-      await loadDashboard();
-
-      return {
-        success: true,
-        message: "Product updated successfully",
-      };
-
-
-    } catch (err) {
-
-      return {
-        success: false,
-        message:
-          err.response?.data?.message ||
-          "Failed to update product",
-      };
-
-    } finally {
-
-      setActionLoading(false);
-
-    }
-
-  };
+  },[loadDashboard]);
 
 
 
-  const deleteProduct = async (id) => {
-
-    try {
-
-      setActionLoading(true);
-
-      await productService.remove(id);
-
-      await loadDashboard();
-
-      return {
-        success: true,
-        message: "Product deleted successfully",
-      };
-
-
-    } catch (err) {
-
-      return {
-        success: false,
-        message:
-          err.response?.data?.message ||
-          "Failed to delete product",
-      };
-
-    } finally {
-
-      setActionLoading(false);
-
-    }
-
-  };
-  const stats = {
-  users: users.length,
-  products: products.length,
-  orders: orders.length,
-  reviews: reviews.length,
-  brands: brands.length,
-  coupons: coupons.length,
-};
 
 
 
-return {
-  stats,
 
-  dashboard: {
+  return {
+
+
+    stats,
+
+
     products,
+
     users,
+
     orders,
+
     reviews,
-    coupons,
+
     brands,
-  },
 
-  products,
-  users,
-  orders,
-  reviews,
-  coupons,
-  brands,
+    coupons,
 
-  loading,
-  actionLoading,
-  error,
 
-  refresh: loadDashboard,
-  loadDashboard,
+    recentOrders,
 
-  createProduct,
-  updateProduct,
-  deleteProduct,
-};
+    monthlyRevenue,
+
+    bestSellers,
+
+
+
+    loading,
+
+    actionLoading,
+
+    error,
+
+
+
+    refresh: loadDashboard,
+
+    loadDashboard,
+
+  };
+
 
 }
+
 
 
 export default useAdminDashboard;

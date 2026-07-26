@@ -1,122 +1,170 @@
-import { useState } from "react";
-
 import useAdminDashboard from "../hooks/useAdminDashboard";
 
-import OverviewTab from "../components/admin/tabs/OverviewTab";
-import UsersTab from "../components/admin/tabs/UsersTab";
-import ProductsTab from "../components/admin/tabs/ProductsTab";
-import OrdersTab from "../components/admin/tabs/OrdersTab";
-import ReviewsTab from "../components/admin/tabs/ReviewsTab";
-import CouponsTab from "../components/admin/tabs/CouponsTab";
-import BrandsTab from "../components/admin/tabs/BrandsTab";
+import AdminLayout from "../components/admin/layout/AdminLayout";
+
+import DashboardHeader from "../components/admin/dashboard/DashboardHeader";
+import KPIGrid from "../components/admin/dashboard/KPIGrid";
+import RevenueChart from "../components/admin/dashboard/RevenueChart";
+import OrdersChart from "../components/admin/dashboard/OrdersChart";
+import RecentOrders from "../components/admin/dashboard/RecentOrders";
+import BestSellers from "../components/admin/dashboard/BestSellers";
+import LowStockProducts from "../components/admin/dashboard/LowStockProducts";
 
 import Loader from "../components/common/Loader";
 
-const tabs = [
-  { id: "overview", label: "Overview" },
-  { id: "users", label: "Users" },
-  { id: "products", label: "Products" },
-  { id: "orders", label: "Orders" },
-  { id: "reviews", label: "Reviews" },
-  { id: "coupons", label: "Coupons" },
-  { id: "brands", label: "Brands" },
-];
+
 
 function AdminDashboardPage() {
-  const [activeTab, setActiveTab] = useState("overview");
+
 
   const dashboard = useAdminDashboard();
+
+
 
   if (dashboard.loading) {
     return <Loader />;
   }
 
+
+
   if (dashboard.error) {
+
     return (
-      <div className="admin-error">
-        <h2>Dashboard Error</h2>
-        <p>{dashboard.error}</p>
 
-        <button onClick={dashboard.refresh}>
-          Retry
-        </button>
-      </div>
-    );
-  }
+      <div className="p-10">
 
-  const renderTab = () => {
-    const props = {
-      ...dashboard,
-    };
+        <h2 className="text-xl font-bold">
+          Dashboard Error
+        </h2>
 
-    switch (activeTab) {
-      case "overview":
-        return <Dashboard />;
+        <p>
+          {dashboard.error}
+        </p>
 
-      case "users":
-        return <UsersTab {...props} />;
-
-      case "products":
-        return <ProductsTab {...props} />;
-
-      case "orders":
-        return <OrdersTab {...props} />;
-
-      case "reviews":
-        return <ReviewsTab {...props} />;
-
-      case "coupons":
-        return <CouponsTab {...props} />;
-
-      case "brands":
-        return <BrandsTab {...props} />;
-
-      default:
-        return <OverviewTab {...props} />;
-    }
-  };
-
-  return (
-    <div className="admin-dashboard">
-
-      <div className="admin-dashboard-header">
-        <div>
-          <h1>Admin Dashboard</h1>
-          <p>Manage your optical store</p>
-        </div>
 
         <button
           onClick={dashboard.refresh}
-          disabled={dashboard.actionLoading}
+          className="
+            mt-5
+            px-5
+            py-2
+            bg-black
+            text-white
+          "
         >
-          Refresh
+          Retry
         </button>
+
+
+      </div>
+
+    );
+
+  }
+
+
+
+
+
+  return (
+
+    <AdminLayout>
+
+
+      <DashboardHeader
+        refresh={dashboard.refresh}
+      />
+
+
+
+      <KPIGrid
+        stats={dashboard.stats}
+      />
+
+
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          xl:grid-cols-2
+          gap-6
+          mt-6
+        "
+      >
+
+
+        <RevenueChart
+          data={dashboard.monthlyRevenue}
+        />
+
+
+        <OrdersChart
+          orders={dashboard.orders}
+        />
+
+
       </div>
 
 
-      <div className="admin-tabs">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={
-              activeTab === tab.id
-                ? "active"
-                : ""
-            }
-          >
-            {tab.label}
-          </button>
-        ))}
+
+
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          xl:grid-cols-3
+          gap-6
+          mt-6
+        "
+      >
+
+
+        <div
+          className="
+            xl:col-span-2
+          "
+        >
+
+          <RecentOrders
+            orders={dashboard.recentOrders}
+          />
+
+        </div>
+
+
+
+        <LowStockProducts
+          products={dashboard.products}
+        />
+
+
       </div>
 
 
-      <div className="admin-content">
-        {renderTab()}
+
+
+
+      <div
+        className="
+          mt-6
+        "
+      >
+
+        <BestSellers
+          products={dashboard.bestSellers}
+        />
+
       </div>
 
-    </div>
+
+
+    </AdminLayout>
+
   );
+
 }
+
 
 export default AdminDashboardPage;
