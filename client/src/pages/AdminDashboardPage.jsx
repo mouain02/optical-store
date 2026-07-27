@@ -15,7 +15,7 @@ import ProductsPage from "../components/admin/products/ProductsPage";
 import Loader from "../components/common/Loader";
 import OrdersPage from "../components/admin/orders/OrdersPage";
 import CustomersPage from "../components/admin/customers/CustomersPage";
-
+import ReviewsPage from "../components/admin/reviews/ReviewsPage";
 
 
 
@@ -345,8 +345,12 @@ function AdminDashboardPage() {
 
         return (
 
-          <Placeholder
-            title="Reviews Management"
+          <ReviewsPage
+
+            reviews={dashboard.reviews}
+
+            refresh={dashboard.refresh}
+
           />
 
         );
