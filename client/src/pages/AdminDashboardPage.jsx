@@ -17,7 +17,7 @@ import Loader from "../components/common/Loader";
 import OrdersPage from "../components/admin/orders/OrdersPage";
 import CustomersPage from "../components/admin/customers/CustomersPage";
 import ReviewsPage from "../components/admin/reviews/ReviewsPage";
-
+import CouponsPage from "../components/admin/coupons/CouponsPage";
 
 
 
@@ -384,8 +384,16 @@ function AdminDashboardPage() {
 
         return (
 
-          <Placeholder
-            title="Coupons Management"
+          <CouponsPage
+
+            coupons={dashboard.coupons}
+
+            createCoupon={dashboard.createCoupon}
+
+            updateCoupon={dashboard.updateCoupon}
+
+            deleteCoupon={dashboard.deleteCoupon}
+
           />
 
         );
