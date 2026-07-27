@@ -3,60 +3,60 @@ import { useState } from "react";
 import BrandsTable from "./BrandsTable";
 import BrandModal from "./BrandModal";
 import DeleteBrandModal from "./DeleteBrandModal";
-
+import toast from "react-hot-toast";
 
 function BrandsPage({
-  brands = [],
-  createBrand,
-  updateBrand,
-  deleteBrand,
-  refresh,
+    brands = [],
+    createBrand,
+    updateBrand,
+    deleteBrand,
+    refresh,
 }) {
 
 
-  const [modalOpen,setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
-  const [editingBrand,setEditingBrand] = useState(null);
+    const [editingBrand, setEditingBrand] = useState(null);
 
-  const [deleteOpen,setDeleteOpen] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const [brandToDelete,setBrandToDelete] = useState(null);
-
-
-
-
-  const handleEdit = (brand)=>{
-
-    setEditingBrand(brand);
-
-    setModalOpen(true);
-
-  };
+    const [brandToDelete, setBrandToDelete] = useState(null);
 
 
 
 
+    const handleEdit = (brand) => {
 
-  const handleDelete = (brand)=>{
+        setEditingBrand(brand);
 
-    setBrandToDelete(brand);
+        setModalOpen(true);
 
-    setDeleteOpen(true);
-
-  };
+    };
 
 
 
 
 
+    const handleDelete = (brand) => {
 
-  return (
+        setBrandToDelete(brand);
 
-    <div className="space-y-6">
+        setDeleteOpen(true);
+
+    };
 
 
-      <div
-        className="
+
+
+
+
+    return (
+
+        <div className="space-y-6">
+
+
+            <div
+                className="
           bg-white
           rounded-2xl
           border
@@ -66,39 +66,39 @@ function BrandsPage({
           justify-between
           items-center
         "
-      >
+            >
 
 
-        <div>
+                <div>
 
-          <h1 className="text-3xl font-semibold">
+                    <h1 className="text-3xl font-semibold">
 
-            Brands
+                        Brands
 
-          </h1>
-
-
-          <p className="text-gray-500 mt-2">
-
-            Manage eyewear brands.
-
-          </p>
-
-        </div>
+                    </h1>
 
 
+                    <p className="text-gray-500 mt-2">
 
-        <button
+                        Manage eyewear brands.
 
-          onClick={()=>{
+                    </p>
 
-            setEditingBrand(null);
+                </div>
 
-            setModalOpen(true);
 
-          }}
 
-          className="
+                <button
+
+                    onClick={() => {
+
+                        setEditingBrand(null);
+
+                        setModalOpen(true);
+
+                    }}
+
+                    className="
             px-5
             py-3
             rounded-xl
@@ -106,145 +106,148 @@ function BrandsPage({
             text-white
           "
 
-        >
+                >
 
-          Add Brand
+                    Add Brand
 
-        </button>
+                </button>
 
 
-      </div>
+            </div>
 
 
 
 
 
-      <BrandsTable
+            <BrandsTable
 
-        brands={brands}
+                brands={brands}
 
-        onEdit={handleEdit}
+                onEdit={handleEdit}
 
-        onDelete={handleDelete}
+                onDelete={handleDelete}
 
-      />
+            />
 
 
 
 
 
 
-      <BrandModal
+            <BrandModal
 
-        open={modalOpen}
+                open={modalOpen}
 
-        initialData={editingBrand}
+                initialData={editingBrand}
 
-        onClose={()=>{
+                onClose={() => {
 
-          setModalOpen(false);
+                    setModalOpen(false);
 
-          setEditingBrand(null);
+                    setEditingBrand(null);
 
-        }}
+                }}
 
-        onSave={async(data)=>{
+                onSave={async (data) => {
 
 
-          let result;
+                    let result;
 
 
-          if(editingBrand){
+                    if (editingBrand) {
 
-            result =
-              await updateBrand(
-                editingBrand._id,
-                data
-              );
+                        result =
+                            await updateBrand(
+                                editingBrand._id,
+                                data
+                            );
 
 
-          }else{
+                    } else {
 
 
-            result =
-              await createBrand(data);
+                        result =
+                            await createBrand(data);
 
 
-          }
+                    }
 
 
 
-          alert(result.message);
+                    toast[result.success ? "success" : "error"](
+                        result.message
+                    );
 
 
 
-          if(result.success){
+                    if (result.success) {
 
-            setModalOpen(false);
+                        setModalOpen(false);
 
-            setEditingBrand(null);
+                        setEditingBrand(null);
 
-          }
+                    }
 
 
 
-        }}
+                }}
 
-      />
+            />
 
 
 
 
 
 
-      <DeleteBrandModal
+            <DeleteBrandModal
 
-        open={deleteOpen}
+                open={deleteOpen}
 
-        brand={brandToDelete}
+                brand={brandToDelete}
 
-        onCancel={()=>{
+                onCancel={() => {
 
-          setDeleteOpen(false);
+                    setDeleteOpen(false);
 
-          setBrandToDelete(null);
+                    setBrandToDelete(null);
 
-        }}
+                }}
 
 
-        onConfirm={async()=>{
+                onConfirm={async () => {
 
 
-          const result =
-            await deleteBrand(
-              brandToDelete._id
-            );
+                    const result =
+                        await deleteBrand(
+                            brandToDelete._id
+                        );
 
+                    toast[result.success ? "success" : "error"](
+                        result.message
+                    );
 
-          alert(result.message);
 
 
+                    if (result.success) {
 
-          if(result.success){
+                        setDeleteOpen(false);
 
-            setDeleteOpen(false);
+                        setBrandToDelete(null);
 
-            setBrandToDelete(null);
 
+                    }
 
-          }
 
 
+                }}
 
-        }}
+            />
 
-      />
 
 
+        </div>
 
-    </div>
-
-  );
+    );
 
 }
 
