@@ -22,17 +22,11 @@ function useAdminDashboard() {
   const [stats, setStats] = useState({
 
     users: 0,
-
     products: 0,
-
     orders: 0,
-
     reviews: 0,
-
     brands: 0,
-
     coupons: 0,
-
     revenue: 0,
 
   });
@@ -53,6 +47,7 @@ function useAdminDashboard() {
 
 
 
+
   const [recentOrders, setRecentOrders] = useState([]);
 
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
@@ -61,11 +56,13 @@ function useAdminDashboard() {
 
 
 
+
   const [loading, setLoading] = useState(true);
 
   const [actionLoading, setActionLoading] = useState(false);
 
   const [error, setError] = useState(null);
+
 
 
 
@@ -105,21 +102,15 @@ function useAdminDashboard() {
 
         adminService.getDashboard(),
 
-
         productService.getAdminAll(),
-
 
         adminService.getUsers(),
 
-
         orderService.getAdminAll(),
-
 
         reviewService.getAdminAll(),
 
-
         brandService.getAll(),
-
 
         couponService.getAll(),
 
@@ -130,61 +121,40 @@ function useAdminDashboard() {
 
 
 
-      /*
-        Analytics data
-      */
-
-
       setStats({
 
         users:
-          dashboardData?.stats?.customers
-          ||
-          dashboardData?.stats?.users
-          ||
+          dashboardData?.stats?.customers ||
+          dashboardData?.stats?.users ||
           0,
 
 
         products:
-          dashboardData?.stats?.products
-          ||
+          dashboardData?.stats?.products ||
           0,
 
 
         orders:
-          dashboardData?.stats?.orders
-          ||
+          dashboardData?.stats?.orders ||
           0,
 
 
         revenue:
-          dashboardData?.stats?.revenue
-          ||
+          dashboardData?.stats?.revenue ||
           0,
 
 
         reviews:
-          reviewsData?.length
-          ||
-          reviewsData?.reviews?.length
-          ||
-          0,
+          (reviewsData?.reviews || reviewsData || []).length,
 
 
         brands:
-          brandsData?.length
-          ||
-          brandsData?.brands?.length
-          ||
-          0,
+          (brandsData?.brands || brandsData || []).length,
 
 
         coupons:
-          couponsData?.length
-          ||
-          couponsData?.coupons?.length
-          ||
-          0,
+          (couponsData?.coupons || couponsData || []).length,
+
 
       });
 
@@ -198,11 +168,9 @@ function useAdminDashboard() {
       );
 
 
-
       setMonthlyRevenue(
         dashboardData?.monthlyRevenue || []
       );
-
 
 
       setBestSellers(
@@ -215,68 +183,53 @@ function useAdminDashboard() {
 
 
 
-      /*
-        Tables data
-      */
-
 
       setProducts(
-        productsData?.products
-        ||
-        productsData
-        ||
+        productsData?.products ||
+        productsData ||
         []
       );
 
 
 
       setUsers(
-        usersData?.users
-        ||
-        usersData
-        ||
+        usersData?.users ||
+        usersData ||
         []
       );
 
 
 
       setOrders(
-        ordersData?.orders
-        ||
-        ordersData
-        ||
+        ordersData?.orders ||
+        ordersData ||
         []
       );
 
 
 
       setReviews(
-        reviewsData?.reviews
-        ||
-        reviewsData
-        ||
+        reviewsData?.reviews ||
+        reviewsData ||
         []
       );
 
 
 
       setBrands(
-        brandsData?.brands
-        ||
-        brandsData
-        ||
+        brandsData?.brands ||
+        brandsData ||
         []
       );
 
 
 
       setCoupons(
-        couponsData?.coupons
-        ||
-        couponsData
-        ||
+        couponsData?.coupons ||
+        couponsData ||
         []
       );
+
 
 
 
@@ -294,10 +247,8 @@ function useAdminDashboard() {
 
       setError(
 
-        err.response?.data?.message
-        ||
-        err.message
-        ||
+        err.response?.data?.message ||
+        err.message ||
         "Dashboard loading failed"
 
       );
@@ -320,11 +271,199 @@ function useAdminDashboard() {
 
 
 
+
+
   useEffect(()=>{
 
     loadDashboard();
 
   },[loadDashboard]);
+
+
+
+
+
+
+
+
+
+  /*
+    BRAND ACTIONS
+  */
+
+
+  const createBrand = async(data)=>{
+
+
+    try{
+
+
+      setActionLoading(true);
+
+
+      await brandService.create(data);
+
+
+      await loadDashboard();
+
+
+
+      return {
+
+        success:true,
+
+        message:"Brand created successfully",
+
+      };
+
+
+    }
+
+    catch(err){
+
+
+      return {
+
+        success:false,
+
+        message:
+          err.response?.data?.message ||
+          "Failed to create brand",
+
+      };
+
+
+    }
+
+    finally{
+
+      setActionLoading(false);
+
+    }
+
+
+  };
+
+
+
+
+
+
+
+  const updateBrand = async(id,data)=>{
+
+
+    try{
+
+
+      setActionLoading(true);
+
+
+      await brandService.update(
+        id,
+        data
+      );
+
+
+      await loadDashboard();
+
+
+
+      return {
+
+        success:true,
+
+        message:"Brand updated successfully",
+
+      };
+
+
+    }
+
+    catch(err){
+
+
+      return {
+
+        success:false,
+
+        message:
+          err.response?.data?.message ||
+          "Failed to update brand",
+
+      };
+
+
+    }
+
+    finally{
+
+      setActionLoading(false);
+
+    }
+
+
+  };
+
+
+
+
+
+
+
+  const deleteBrand = async(id)=>{
+
+
+    try{
+
+
+      setActionLoading(true);
+
+
+      await brandService.remove(id);
+
+
+      await loadDashboard();
+
+
+
+      return {
+
+        success:true,
+
+        message:"Brand deleted successfully",
+
+      };
+
+
+    }
+
+    catch(err){
+
+
+      return {
+
+        success:false,
+
+        message:
+          err.response?.data?.message ||
+          "Failed to delete brand",
+
+      };
+
+
+    }
+
+    finally{
+
+      setActionLoading(false);
+
+    }
+
+
+  };
+
+
 
 
 
@@ -351,6 +490,7 @@ function useAdminDashboard() {
     coupons,
 
 
+
     recentOrders,
 
     monthlyRevenue,
@@ -367,15 +507,23 @@ function useAdminDashboard() {
 
 
 
-    refresh: loadDashboard,
+    refresh:loadDashboard,
 
     loadDashboard,
+
+
+
+    createBrand,
+
+    updateBrand,
+
+    deleteBrand,
+
 
   };
 
 
 }
-
 
 
 export default useAdminDashboard;

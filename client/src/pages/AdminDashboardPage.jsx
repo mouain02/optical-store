@@ -12,6 +12,7 @@ import RecentOrders from "../components/admin/dashboard/RecentOrders";
 import BestSellers from "../components/admin/dashboard/BestSellers";
 import LowStockProducts from "../components/admin/dashboard/LowStockProducts";
 import ProductsPage from "../components/admin/products/ProductsPage";
+import BrandsPage from "../components/admin/brands/BrandsPage";
 import Loader from "../components/common/Loader";
 import OrdersPage from "../components/admin/orders/OrdersPage";
 import CustomersPage from "../components/admin/customers/CustomersPage";
@@ -361,8 +362,18 @@ function AdminDashboardPage() {
 
         return (
 
-          <Placeholder
-            title="Brands Management"
+          <BrandsPage
+
+            brands={dashboard.brands}
+
+            createBrand={dashboard.createBrand}
+
+            updateBrand={dashboard.updateBrand}
+
+            deleteBrand={dashboard.deleteBrand}
+
+            refresh={dashboard.refresh}
+
           />
 
         );
