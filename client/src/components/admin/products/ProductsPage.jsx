@@ -262,7 +262,7 @@ function ProductsPage({
 
                     if (result.success) {
 
-
+                         console.log("CREATE RESULT:", result);
                         // upload images after product creation
                         if (
                             !editingProduct &&
