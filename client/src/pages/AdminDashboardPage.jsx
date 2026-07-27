@@ -11,8 +11,10 @@ import OrdersChart from "../components/admin/dashboard/OrdersChart";
 import RecentOrders from "../components/admin/dashboard/RecentOrders";
 import BestSellers from "../components/admin/dashboard/BestSellers";
 import LowStockProducts from "../components/admin/dashboard/LowStockProducts";
-
+import ProductsPage from "../components/admin/products/ProductsPage";
 import Loader from "../components/common/Loader";
+import OrdersPage from "../components/admin/orders/OrdersPage";
+import CustomersPage from "../components/admin/customers/CustomersPage";
 
 
 
@@ -273,7 +275,7 @@ function AdminDashboardPage() {
   const renderContent = () => {
 
 
-    switch(activeSection) {
+    switch (activeSection) {
 
 
       case "dashboard":
@@ -289,13 +291,20 @@ function AdminDashboardPage() {
 
 
       case "products":
-
         return (
+          <ProductsPage
 
-          <Placeholder
-            title="Products Management"
+            products={dashboard.products}
+
+            brands={dashboard.brands}
+
+            createProduct={dashboard.createProduct}
+
+            updateProduct={dashboard.updateProduct}
+
+            deleteProduct={dashboard.deleteProduct}
+
           />
-
         );
 
 
@@ -304,8 +313,12 @@ function AdminDashboardPage() {
 
         return (
 
-          <Placeholder
-            title="Orders Management"
+          <OrdersPage
+
+            orders={dashboard.orders}
+
+            refresh={dashboard.refresh}
+
           />
 
         );
@@ -316,8 +329,12 @@ function AdminDashboardPage() {
 
         return (
 
-          <Placeholder
-            title="Customers Management"
+          <CustomersPage
+
+            users={dashboard.users}
+
+            refresh={dashboard.refresh}
+
           />
 
         );

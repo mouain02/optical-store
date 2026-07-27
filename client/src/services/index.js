@@ -78,6 +78,7 @@ export const wishlistService = {
 export const adminService = {
   getDashboard: () => api.get("/admin/dashboard").then((r) => r.data),
   getCustomers: () => api.get("/admin/customers").then((r) => r.data),
+  getCustomerById: (id) => api.get(`/admin/customers/${id}`).then((r) => r.data),
   getUsers: () => api.get("/admin/users").then((r) => r.data),
   updateUser: (id, data) => api.put(`/admin/users/${id}`, data).then((r) => r.data),
   deleteUser: (id) => api.delete(`/admin/users/${id}`).then((r) => r.data),

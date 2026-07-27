@@ -17,8 +17,7 @@ function AdminLayout({
         bg-[#f8f7f5]
         flex
       "
-    >
-
+    >   
 
       <Sidebar
 
