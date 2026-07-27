@@ -129,8 +129,7 @@ export const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 export const uploadImages = asyncHandler(async (req, res) => {
-  console.log("PARAMS:", req.params);
-  console.log("BODY:", req.body);
+  console.log("SLUG:", req.params.slug);
   console.log("FILES:", req.files);
 
   const product = await Product.findOne({ slug: req.params.slug });
@@ -152,9 +151,10 @@ export const uploadImages = asyncHandler(async (req, res) => {
 
   await product.save();
 
+  console.log("SAVED IMAGES:", product.images);
+
   res.status(201).json(product.images);
 });
-
 export const reorderImages = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
