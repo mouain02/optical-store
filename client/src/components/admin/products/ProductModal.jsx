@@ -101,7 +101,7 @@ function ProductModal({
     } = e.target;
 
 
-    setForm((prev)=>({
+    setForm((prev) => ({
 
       ...prev,
 
@@ -118,7 +118,7 @@ function ProductModal({
 
 
 
-  const handleImages = (e)=>{
+  const handleImages = (e) => {
 
     const files = Array.from(
       e.target.files
@@ -134,11 +134,11 @@ function ProductModal({
 
 
 
-  const removeImage = (index)=>{
+  const removeImage = (index) => {
 
-    setImages((prev)=>
+    setImages((prev) =>
       prev.filter(
-        (_,i)=>i !== index
+        (_, i) => i !== index
       )
     );
 
@@ -150,32 +150,32 @@ function ProductModal({
 
 
 
-  const validate = ()=>{
+  const validate = () => {
 
     const newErrors = {};
 
 
-    if(!form.name)
+    if (!form.name)
       newErrors.name =
         "Product name required";
 
 
-    if(!form.brand)
+    if (!form.brand)
       newErrors.brand =
         "Please select a brand";
 
 
-    if(!form.category)
+    if (!form.category)
       newErrors.category =
         "Please select category";
 
 
-    if(!form.price)
+    if (!form.price)
       newErrors.price =
         "Price required";
 
 
-    if(!initialData && images.length === 0)
+    if (!initialData && images.length === 0)
       newErrors.images =
         "Please upload product image";
 
@@ -194,12 +194,12 @@ function ProductModal({
 
 
 
-  const submit = (e)=>{
+  const submit = (e) => {
 
     e.preventDefault();
 
 
-    if(!validate())
+    if (!validate())
       return;
 
 
@@ -275,7 +275,7 @@ function ProductModal({
 
           <button onClick={onClose}>
 
-            <X size={26}/>
+            <X size={26} />
 
           </button>
 
@@ -357,7 +357,7 @@ function ProductModal({
                   </option>
 
 
-                  {brands.map((brand)=>(
+                  {brands.map((brand) => (
 
                     <option
                       key={brand._id}
@@ -407,15 +407,13 @@ function ProductModal({
                   </option>
 
 
-                  {categories.map((cat)=>(
+                  {categories.map((cat) => (
 
                     <option
-                      key={cat}
-                      value={cat}
+                      key={cat.value}
+                      value={cat.value}
                     >
-
-                      {cat}
-
+                      {cat.label}
                     </option>
 
                   ))}
@@ -576,7 +574,7 @@ function ProductModal({
 
             >
 
-              <Upload size={36}/>
+              <Upload size={36} />
 
 
               <span className="mt-3">
@@ -623,7 +621,7 @@ function ProductModal({
               <div className="grid grid-cols-4 gap-4 mt-5">
 
 
-                {images.map((img,index)=>(
+                {images.map((img, index) => (
 
 
                   <div
@@ -657,7 +655,7 @@ function ProductModal({
 
                       type="button"
 
-                      onClick={()=>
+                      onClick={() =>
                         removeImage(index)
                       }
 

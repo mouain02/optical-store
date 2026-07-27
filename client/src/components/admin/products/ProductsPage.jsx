@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-
+import { productService } from "../../../services";
 import ProductToolbar from "./ProductToolbar";
 import ProductTable from "./ProductTable";
 import ProductModal from "./ProductModal";
@@ -202,10 +202,30 @@ function ProductsPage({
                 brands={brands}
 
                 categories={[
-                    "Sunglasses",
-                    "Eyeglasses",
-                    "Kids",
-                    "Accessories",
+                    {
+                        value: "prescription",
+                        label: "Prescription Glasses",
+                    },
+                    {
+                        value: "sunglasses",
+                        label: "Sunglasses",
+                    },
+                    {
+                        value: "contact-lenses",
+                        label: "Contact Lenses",
+                    },
+                    {
+                        value: "blue-light",
+                        label: "Blue Light Glasses",
+                    },
+                    {
+                        value: "kids",
+                        label: "Kids",
+                    },
+                    {
+                        value: "accessories",
+                        label: "Accessories",
+                    },
                 ]}
                 onClose={() => {
 
@@ -219,23 +239,17 @@ function ProductsPage({
 
                     let result;
 
-                    const productData = {
-                        ...form,
-                        images,
-                    };
-
-
                     if (editingProduct) {
 
                         result = await updateProduct(
                             editingProduct._id,
-                            productData
+                            form
                         );
 
                     } else {
 
                         result = await createProduct(
-                            productData
+                            form
                         );
 
                     }
@@ -248,9 +262,39 @@ function ProductsPage({
 
                     if (result.success) {
 
+
+                        // upload images after product creation
+                        if (
+                            !editingProduct &&
+                            images &&
+                            images.length > 0
+                        ) {
+
+                            const formData = new FormData();
+
+
+                            images.forEach((image) => {
+
+                                formData.append(
+                                    "images",
+                                    image
+                                );
+
+                            });
+
+
+                            await productService.uploadImages(
+                                result.product.slug,
+                                formData
+                            );
+
+                        }
+
+
                         setModalOpen(false);
 
                         setEditingProduct(null);
+
 
                     }
 
