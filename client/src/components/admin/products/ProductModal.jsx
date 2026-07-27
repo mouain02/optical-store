@@ -792,4 +792,4 @@ function ProductModal({
 }
 
 
-export default ProductModal;gir
+export default ProductModal;
