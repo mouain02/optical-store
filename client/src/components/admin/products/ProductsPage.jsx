@@ -5,6 +5,7 @@ import ProductTable from "./ProductTable";
 import ProductModal from "./ProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import ProductStats from "./ProductStats";
+import toast from "react-hot-toast";
 function ProductsPage({
 
     products = [],
@@ -153,7 +154,7 @@ function ProductsPage({
             />
 
             <ProductStats
-              products={products}
+                products={products}
             />
 
             <ProductTable
@@ -226,7 +227,9 @@ function ProductsPage({
 
                     }
 
-                    alert(result.message);
+                    toast[result.success ? "success" : "error"](
+                        result.message
+                    );
 
                     if (result.success) {
 
@@ -249,7 +252,9 @@ function ProductsPage({
                 onConfirm={async () => {
                     const result = await deleteProduct(productToDelete._id);
 
-                    alert(result.message);
+                    toast[result.success ? "success" : "error"](
+                        result.message
+                    );
 
                     if (result.success) {
                         setDeleteModalOpen(false);
