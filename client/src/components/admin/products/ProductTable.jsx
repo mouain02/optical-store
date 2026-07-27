@@ -178,7 +178,7 @@ function ProductTable({
 
 
           {
-            products.map((product)=>{
+            products.map((product) => {
 
 
               const stock =
@@ -224,22 +224,21 @@ function ProductTable({
 
 
                       <img
-
                         src={
-                          product.images?.[0]?.url ||
-                          product.image ||
+                          product.images?.[0]?.path ||
                           "/placeholder-product.jpg"
                         }
-
                         alt={product.name}
+                      
 
-                        className="
-                          w-20
-                          h-20
-                          rounded-xl
-                          object-cover
-                          bg-gray-100
-                        "
+
+                      className="
+                      w-20
+                      h-20
+                      rounded-xl
+                      object-cover
+                      bg-gray-100
+                      "
 
                       />
 
@@ -310,16 +309,15 @@ function ProductTable({
                         text-xs
                         font-semibold
 
-                        ${
-                          stock === 0
+                        ${stock === 0
 
                           ? "bg-red-100 text-red-700"
 
                           : stock <= 5
 
-                          ? "bg-orange-100 text-orange-700"
+                            ? "bg-orange-100 text-orange-700"
 
-                          : "bg-green-100 text-green-700"
+                            : "bg-green-100 text-green-700"
                         }
 
                       `}
@@ -329,13 +327,13 @@ function ProductTable({
                       {
                         stock === 0
 
-                        ? "Out"
+                          ? "Out"
 
-                        : stock <= 5
+                          : stock <= 5
 
-                        ? `${stock} Left`
+                            ? `${stock} Left`
 
-                        : stock
+                            : stock
                       }
 
 
@@ -379,8 +377,7 @@ function ProductTable({
                         text-xs
                         font-semibold
 
-                        ${
-                          product.isActive
+                        ${product.isActive
 
                           ? "bg-green-100 text-green-700"
 
@@ -395,8 +392,8 @@ function ProductTable({
 
                       {
                         product.isActive
-                        ? "Active"
-                        : "Hidden"
+                          ? "Active"
+                          : "Hidden"
                       }
 
 
@@ -422,13 +419,13 @@ function ProductTable({
                     {
                       product.updatedAt
 
-                      ? new Date(
+                        ? new Date(
                           product.updatedAt
                         ).toLocaleDateString(
                           "fr-FR"
                         )
 
-                      : "-"
+                        : "-"
                     }
 
 
@@ -472,7 +469,7 @@ function ProductTable({
 
                       >
 
-                        <Pencil size={17}/>
+                        <Pencil size={17} />
 
                       </button>
 
@@ -503,7 +500,7 @@ function ProductTable({
 
                       >
 
-                        <Trash2 size={17}/>
+                        <Trash2 size={17} />
 
                       </button>
 

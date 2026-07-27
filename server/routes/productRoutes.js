@@ -12,9 +12,7 @@ import {
   getAdminProducts,
 } from "../controllers/productController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
-import {
-  uploadProductImages,
-} from "../middleware/uploadMiddleware.js";
+import uploadProductImages from "../middleware/cloudinaryUpload.js";
 
 const router = express.Router();
 

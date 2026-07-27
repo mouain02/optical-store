@@ -2,9 +2,21 @@ import mongoose from "mongoose";
 
 const imageSchema = new mongoose.Schema(
   {
-    path: { type: String, required: true },
+    path: {
+      type: String,
+      required: true,
+    },
+
+    publicId: {
+      type: String,
+    },
+
     alt: String,
-    order: { type: Number, default: 0 },
+
+    order: {
+      type: Number,
+      default: 0,
+    },
   },
   { _id: true }
 );
