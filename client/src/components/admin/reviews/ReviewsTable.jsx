@@ -134,7 +134,27 @@ function ReviewsTable({
 
 
         <tbody>
+{
+  reviews.length === 0 ? (
 
+    <tr>
+
+      <td
+        colSpan="5"
+        className="
+          text-center
+          py-20
+          text-gray-400
+        "
+      >
+
+        No reviews found
+
+      </td>
+
+    </tr>
+
+  ) : (
 
         {
           reviews.map((review)=>(
