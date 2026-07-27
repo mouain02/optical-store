@@ -170,38 +170,30 @@ function useAdminDashboard() {
     PRODUCT ACTIONS
   */
 
-  const createProduct = async (data) => {
+const createProduct = async (data) => {
+  try {
+    setActionLoading(true);
 
-    try {
+    const product = await productService.create(data);
 
-      setActionLoading(true);
+    await loadDashboard();
 
-      await productService.create(data);
-
-      await loadDashboard();
-
-      return {
-        success: true,
-        message: "Product created successfully",
-      };
-
-    } catch (err) {
-
-      return {
-        success: false,
-        message:
-          err.response?.data?.message ||
-          "Failed to create product",
-      };
-
-    } finally {
-
-      setActionLoading(false);
-
-    }
-
-  };
-
+    return {
+      success: true,
+      message: "Product created successfully",
+      product,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message:
+        err.response?.data?.message ||
+        "Failed to create product",
+    };
+  } finally {
+    setActionLoading(false);
+  }
+};
   const updateProduct = async (id, data) => {
 
     try {

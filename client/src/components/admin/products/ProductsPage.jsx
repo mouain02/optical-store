@@ -259,10 +259,10 @@ function ProductsPage({
                         result.message
                     );
 
-
+                    
                     if (result.success) {
 
-                         console.log("CREATE RESULT:", result);
+
                         // upload images after product creation
                         if (
                             !editingProduct &&
@@ -272,16 +272,9 @@ function ProductsPage({
 
                             const formData = new FormData();
 
-
                             images.forEach((image) => {
-
-                                formData.append(
-                                    "images",
-                                    image
-                                );
-
+                                formData.append("images", image);
                             });
-
 
                             await productService.uploadImages(
                                 result.product.slug,

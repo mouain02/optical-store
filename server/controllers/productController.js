@@ -129,7 +129,12 @@ export const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 export const uploadImages = asyncHandler(async (req, res) => {
+  console.log("PARAMS:", req.params);
+  console.log("BODY:", req.body);
+  console.log("FILES:", req.files);
+
   const product = await Product.findOne({ slug: req.params.slug });
+
   if (!product) {
     res.status(404);
     throw new Error("Product not found");
@@ -141,8 +146,12 @@ export const uploadImages = asyncHandler(async (req, res) => {
     order: product.images.length + i,
   }));
 
+  console.log("NEW IMAGES:", newImages);
+
   product.images.push(...newImages);
+
   await product.save();
+
   res.status(201).json(product.images);
 });
 
