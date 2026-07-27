@@ -4,7 +4,7 @@ import ProductToolbar from "./ProductToolbar";
 import ProductTable from "./ProductTable";
 import ProductModal from "./ProductModal";
 import DeleteProductModal from "./DeleteProductModal";
-import ProductStats from "../../components/admin/products/ProductStats";
+import ProductStats from "./ProductStats";
 function ProductsPage({
 
     products = [],
