@@ -43,6 +43,7 @@ function ReviewsTable({
 
 
 
+
   const handleDelete = async (review) => {
 
     const confirmDelete =
@@ -73,6 +74,7 @@ function ReviewsTable({
     }
 
   };
+
 
 
 
@@ -133,208 +135,25 @@ function ReviewsTable({
 
 
 
+
         <tbody>
-{
-  reviews.length === 0 ? (
 
-    <tr>
-
-      <td
-        colSpan="5"
-        className="
-          text-center
-          py-20
-          text-gray-400
-        "
-      >
-
-        No reviews found
-
-      </td>
-
-    </tr>
-
-  ) : (
 
         {
-          reviews.map((review)=>(
-
-            <tr
-
-              key={review._id}
-
-              className="
-                border-b
-                hover:bg-gray-50
-              "
-
-            >
-
-
-              <td className="px-6 py-5">
-
-                <p className="font-medium">
-
-                  {
-                    review.user?.name ||
-                    "Customer"
-                  }
-
-                </p>
-
-
-                <p className="text-sm text-gray-400">
-
-                  {
-                    review.user?.email ||
-                    ""
-                  }
-
-                </p>
-
-              </td>
-
-
-
-
-              <td className="px-6">
-
-
-                {
-                  review.product?.name ||
-                  "-"
-                }
-
-
-              </td>
-
-
-
-
-              <td className="px-6 text-center">
-
-
-                {"★".repeat(review.rating || 0)}
-
-
-              </td>
-
-
-
-
-              <td className="px-6 text-center">
-
-
-                <span
-                  className={`
-                    px-3
-                    py-1
-                    rounded-full
-                    text-xs
-                    
-                    ${
-                      review.approved
-                      ? "bg-green-100 text-green-700"
-                      : "bg-yellow-100 text-yellow-700"
-                    }
-                  `}
-                >
-
-                  {
-                    review.approved
-                    ? "Approved"
-                    : "Pending"
-                  }
-
-
-                </span>
-
-
-              </td>
-
-
-
-
-              <td className="px-6">
-
-
-                <div
-                  className="
-                    flex
-                    justify-center
-                    gap-2
-                  "
-                >
-
-
-                  <button
-
-                    onClick={()=>{
-
-                      setSelectedReview(review);
-
-                      setDrawerOpen(true);
-
-                    }}
-
-                    className="
-                      p-2
-                      rounded-lg
-                      bg-gray-100
-                    "
-
-                  >
-
-                    <Eye size={16}/>
-
-
-                  </button>
-
-
-
-
-                  <button
-
-                    onClick={()=>handleApprove(review)}
-
-                    className="
-                      p-2
-                      rounded-lg
-                      bg-green-50
-                      text-green-600
-                    "
-
-                  >
-
-                    <Check size={16}/>
-
-
-                  </button>
-
-
-
-
-                  <button
-
-                    onClick={()=>handleDelete(review)}
-
-                    className="
-                      p-2
-                      rounded-lg
-                      bg-red-50
-                      text-red-600
-                    "
-
-                  >
-
-                    <Trash2 size={16}/>
-
-
-                  </button>
-
-
-                </div>
-
+          reviews.length === 0 ? (
+
+            <tr>
+
+              <td
+                colSpan="5"
+                className="
+                  text-center
+                  py-20
+                  text-gray-400
+                "
+              >
+
+                No reviews found
 
               </td>
 
@@ -342,7 +161,213 @@ function ReviewsTable({
             </tr>
 
 
-          ))
+          ) : (
+
+
+            reviews.map((review)=>(
+
+              <tr
+
+                key={review._id}
+
+                className="
+                  border-b
+                  hover:bg-gray-50
+                "
+
+              >
+
+
+
+                <td className="px-6 py-5">
+
+                  <p className="font-medium">
+
+                    {
+                      review.user?.name ||
+                      "Customer"
+                    }
+
+                  </p>
+
+
+                  <p className="text-sm text-gray-400">
+
+                    {
+                      review.user?.email ||
+                      ""
+                    }
+
+                  </p>
+
+                </td>
+
+
+
+
+
+                <td className="px-6">
+
+
+                  {
+                    review.product?.name ||
+                    "-"
+                  }
+
+
+                </td>
+
+
+
+
+
+                <td className="px-6 text-center">
+
+
+                  {"★".repeat(review.rating || 0)}
+
+
+                </td>
+
+
+
+
+
+                <td className="px-6 text-center">
+
+
+                  <span
+                    className={`
+
+                      px-3
+                      py-1
+                      rounded-full
+                      text-xs
+
+                      ${
+                        review.approved
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                      }
+
+                    `}
+                  >
+
+                    {
+                      review.approved
+                      ? "Approved"
+                      : "Pending"
+                    }
+
+
+                  </span>
+
+
+                </td>
+
+
+
+
+
+                <td className="px-6">
+
+
+                  <div
+                    className="
+                      flex
+                      justify-center
+                      gap-2
+                    "
+                  >
+
+
+
+                    <button
+
+                      onClick={()=>{
+
+                        setSelectedReview(review);
+
+                        setDrawerOpen(true);
+
+                      }}
+
+                      className="
+                        p-2
+                        rounded-lg
+                        bg-gray-100
+                        hover:bg-gray-200
+                      "
+
+                    >
+
+                      <Eye size={16}/>
+
+
+                    </button>
+
+
+
+
+
+                    <button
+
+                      onClick={()=>handleApprove(review)}
+
+                      className="
+                        p-2
+                        rounded-lg
+                        bg-green-50
+                        text-green-600
+                        hover:bg-green-100
+                      "
+
+                    >
+
+                      <Check size={16}/>
+
+
+                    </button>
+
+
+
+
+
+                    <button
+
+                      onClick={()=>handleDelete(review)}
+
+                      className="
+                        p-2
+                        rounded-lg
+                        bg-red-50
+                        text-red-600
+                        hover:bg-red-100
+                      "
+
+                    >
+
+                      <Trash2 size={16}/>
+
+
+                    </button>
+
+
+
+                  </div>
+
+
+                </td>
+
+
+
+              </tr>
+
+
+            ))
+
+
+          )
         }
 
 
