@@ -1,44 +1,88 @@
 import { useEffect, useState } from "react";
-import { X, Upload } from "lucide-react";
+import { X, Upload, Trash2 } from "lucide-react";
 
 function ProductModal({
   open,
   onClose,
   onSave,
   initialData = null,
+  brands = [],
+  categories = [],
 }) {
 
   const [form, setForm] = useState({
-  name: "",
-  brand: "",
-  category: "",
-  price: "",
-  salePrice: "",
-  stock: "",
-  sku: "",
-  lowStock: 5,
-  description: "",
-  metaTitle: "",
-  metaDescription: "",
-  isActive: true,
-});
+
+    name: "",
+    brand: "",
+    category: "",
+    price: "",
+    salePrice: "",
+    stock: "",
+    sku: "",
+    lowStock: 5,
+    description: "",
+    metaTitle: "",
+    metaDescription: "",
+    isActive: true,
+
+  });
+
+
   const [images, setImages] = useState([]);
+
+  const [errors, setErrors] = useState({});
+
+
 
   useEffect(() => {
 
-    if (!initialData) return;
+    if (initialData) {
 
-    setForm({
-      name: initialData.name || "",
-      brand: initialData.brand?._id || initialData.brand || "",
-      category: initialData.category || "",
-      price: initialData.price || "",
-      stock: initialData.stock || "",
-      description: initialData.description || "",
-      isActive: initialData.isActive,
-    });
+      setForm({
+
+        name: initialData.name || "",
+
+        brand:
+          initialData.brand?._id ||
+          initialData.brand ||
+          "",
+
+        category:
+          initialData.category || "",
+
+        price:
+          initialData.price || "",
+
+        salePrice:
+          initialData.salePrice || "",
+
+        stock:
+          initialData.stock || "",
+
+        sku:
+          initialData.sku || "",
+
+        lowStock:
+          initialData.lowStock || 5,
+
+        description:
+          initialData.description || "",
+
+        metaTitle:
+          initialData.metaTitle || "",
+
+        metaDescription:
+          initialData.metaDescription || "",
+
+        isActive:
+          initialData.isActive ?? true,
+
+      });
+
+    }
 
   }, [initialData]);
+
 
 
 
@@ -46,29 +90,128 @@ function ProductModal({
 
 
 
+
   const handleChange = (e) => {
 
-    const { name, value, type, checked } = e.target;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = e.target;
 
-    setForm((prev) => ({
+
+    setForm((prev)=>({
+
       ...prev,
+
       [name]:
         type === "checkbox"
           ? checked
           : value,
+
     }));
 
   };
 
 
 
-  const submit = (e) => {
+
+
+  const handleImages = (e)=>{
+
+    const files = Array.from(
+      e.target.files
+    );
+
+
+    setImages(files);
+
+  };
+
+
+
+
+
+
+  const removeImage = (index)=>{
+
+    setImages((prev)=>
+      prev.filter(
+        (_,i)=>i !== index
+      )
+    );
+
+  };
+
+
+
+
+
+
+
+  const validate = ()=>{
+
+    const newErrors = {};
+
+
+    if(!form.name)
+      newErrors.name =
+        "Product name required";
+
+
+    if(!form.brand)
+      newErrors.brand =
+        "Please select a brand";
+
+
+    if(!form.category)
+      newErrors.category =
+        "Please select category";
+
+
+    if(!form.price)
+      newErrors.price =
+        "Price required";
+
+
+    if(!initialData && images.length === 0)
+      newErrors.images =
+        "Please upload product image";
+
+
+
+    setErrors(newErrors);
+
+
+    return Object.keys(newErrors).length === 0;
+
+  };
+
+
+
+
+
+
+
+  const submit = (e)=>{
 
     e.preventDefault();
 
-    onSave(form, images);
+
+    if(!validate())
+      return;
+
+
+
+    onSave(
+      form,
+      images
+    );
 
   };
+
+
 
 
 
@@ -86,6 +229,7 @@ function ProductModal({
       "
     >
 
+
       <div
         className="
           bg-white
@@ -98,72 +242,198 @@ function ProductModal({
         "
       >
 
-        {/* HEADER */}
 
-        <div className="flex justify-between items-center p-8 border-b">
+
+        <div
+          className="
+            flex
+            justify-between
+            items-center
+            p-8
+            border-b
+          "
+        >
 
           <div>
 
             <h2 className="text-3xl font-semibold">
 
-              {
-                initialData
-                  ? "Edit Product"
-                  : "New Product"
-              }
+              {initialData
+                ? "Edit Product"
+                : "New Product"}
 
             </h2>
 
             <p className="text-gray-500 mt-2">
 
-              Complete the information below.
+              Complete product information.
 
             </p>
 
           </div>
 
+
           <button onClick={onClose}>
 
-            <X size={26} />
+            <X size={26}/>
 
           </button>
+
 
         </div>
 
 
 
+
+
+
+
         <form
           onSubmit={submit}
-          className="p-8 space-y-8"
+          className="
+            p-8
+            space-y-8
+          "
         >
 
-          {/* GENERAL */}
+
 
           <div>
 
             <h3 className="text-xl font-semibold mb-5">
-
               General
-
             </h3>
+
+
 
             <div className="grid grid-cols-2 gap-6">
 
-              <input
-                name="name"
-                placeholder="Product Name"
-                value={form.name}
-                onChange={handleChange}
-                className="input-field"
-              />
 
-              <input
-                name="category"
-                placeholder="Category"
-                value={form.category}
-                onChange={handleChange}
-                className="input-field"
-              />
+              <div>
+
+                <input
+
+                  name="name"
+
+                  placeholder="Product name"
+
+                  value={form.name}
+
+                  onChange={handleChange}
+
+                  className="input-field"
+
+                />
+
+                {errors.name &&
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.name}
+                  </p>
+                }
+
+              </div>
+
+
+
+
+
+              <div>
+
+
+                <select
+
+                  name="brand"
+
+                  value={form.brand}
+
+                  onChange={handleChange}
+
+                  className="input-field"
+
+                >
+
+                  <option value="">
+                    Select brand
+                  </option>
+
+
+                  {brands.map((brand)=>(
+
+                    <option
+                      key={brand._id}
+                      value={brand._id}
+                    >
+
+                      {brand.name}
+
+                    </option>
+
+                  ))}
+
+
+                </select>
+
+
+                {errors.brand &&
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.brand}
+                  </p>
+                }
+
+
+              </div>
+
+
+
+
+
+              <div>
+
+
+                <select
+
+                  name="category"
+
+                  value={form.category}
+
+                  onChange={handleChange}
+
+                  className="input-field"
+
+                >
+
+                  <option value="">
+                    Select category
+                  </option>
+
+
+                  {categories.map((cat)=>(
+
+                    <option
+                      key={cat}
+                      value={cat}
+                    >
+
+                      {cat}
+
+                    </option>
+
+                  ))}
+
+
+                </select>
+
+
+                {errors.category &&
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.category}
+                  </p>
+                }
+
+
+              </div>
+
+
 
             </div>
 
@@ -171,144 +441,128 @@ function ProductModal({
 
 
 
-          {/* PRICE */}
+
+
+
 
           <div>
 
             <h3 className="text-xl font-semibold mb-5">
-
-              Pricing
-
+              Pricing & Inventory
             </h3>
 
-            <div className="grid grid-cols-2 gap-6">
+
+            <div className="grid grid-cols-3 gap-6">
+
 
               <input
+
                 type="number"
+
                 name="price"
+
                 placeholder="Price"
+
                 value={form.price}
+
                 onChange={handleChange}
+
                 className="input-field"
+
               />
 
+
               <input
+
                 type="number"
+
                 name="stock"
+
                 placeholder="Stock"
+
                 value={form.stock}
+
                 onChange={handleChange}
+
                 className="input-field"
+
               />
+
+
+
+              <input
+
+                name="sku"
+
+                placeholder="SKU"
+
+                value={form.sku}
+
+                onChange={handleChange}
+
+                className="input-field"
+
+              />
+
+
 
             </div>
 
+
           </div>
-          {/* INVENTORY */}
+
+
+
+
+
+
+
+
           <div>
 
-  <h3 className="text-xl font-semibold mb-5">
-
-    Inventory
-
-  </h3>
-
-  <div className="grid grid-cols-3 gap-6">
-
-    <input
-      name="sku"
-      placeholder="SKU"
-      value={form.sku}
-      onChange={handleChange}
-      className="input-field"
-    />
-
-    <input
-      type="number"
-      name="stock"
-      placeholder="Stock"
-      value={form.stock}
-      onChange={handleChange}
-      className="input-field"
-    />
-
-    <input
-      type="number"
-      name="lowStock"
-      placeholder="Low stock alert"
-      value={form.lowStock}
-      onChange={handleChange}
-      className="input-field"
-    />
-
-  </div>
-  {/* SEO */}
-  <div>
-
-  <h3 className="text-xl font-semibold mb-5">
-
-    SEO
-
-  </h3>
-
-  <input
-    name="metaTitle"
-    placeholder="Meta Title"
-    value={form.metaTitle}
-    onChange={handleChange}
-    className="input-field mb-4"
-  />
-
-  <textarea
-    rows={3}
-    name="metaDescription"
-    placeholder="Meta Description"
-    value={form.metaDescription}
-    onChange={handleChange}
-    className="input-field"
-  />
-
-</div>
-
-</div>
-
-
-
-          {/* DESCRIPTION */}
-
-          <div>
 
             <h3 className="text-xl font-semibold mb-5">
-
               Description
-
             </h3>
+
 
             <textarea
-              rows={6}
+
+              rows={5}
+
               name="description"
+
               value={form.description}
+
               onChange={handleChange}
+
               className="input-field"
+
             />
+
 
           </div>
 
 
 
-          {/* IMAGES */}
+
+
+
+
 
           <div>
 
+
             <h3 className="text-xl font-semibold mb-5">
-
               Images
-
             </h3>
 
+
+
             <label
+
               className="
-                h-52
+                h-48
                 border-2
                 border-dashed
                 rounded-2xl
@@ -319,89 +573,223 @@ function ProductModal({
                 cursor-pointer
                 hover:bg-gray-50
               "
+
             >
 
-              <Upload size={36} />
+              <Upload size={36}/>
 
-              <span className="mt-4">
 
-                Upload Product Images
+              <span className="mt-3">
+
+                Click to upload images
 
               </span>
 
+
+
               <input
+
                 type="file"
+
                 multiple
+
                 hidden
-                onChange={(e)=>
-                  setImages([...e.target.files])
-                }
+
+                accept="image/*"
+
+                onChange={handleImages}
+
               />
+
 
             </label>
 
+
+
+            {errors.images &&
+              <p className="text-red-500 text-sm mt-2">
+                {errors.images}
+              </p>
+            }
+
+
+
+
+
+
+
+            {images.length > 0 && (
+
+              <div className="grid grid-cols-4 gap-4 mt-5">
+
+
+                {images.map((img,index)=>(
+
+
+                  <div
+                    key={index}
+                    className="
+                      border
+                      rounded-xl
+                      p-3
+                      relative
+                    "
+                  >
+
+
+                    <img
+
+                      src={
+                        URL.createObjectURL(img)
+                      }
+
+                      className="
+                        h-24
+                        w-full
+                        object-cover
+                        rounded-lg
+                      "
+
+                    />
+
+
+                    <button
+
+                      type="button"
+
+                      onClick={()=>
+                        removeImage(index)
+                      }
+
+                      className="
+                        absolute
+                        top-2
+                        right-2
+                        bg-white
+                        rounded-full
+                        p-1
+                      "
+
+                    >
+
+                      <Trash2
+                        size={16}
+                      />
+
+                    </button>
+
+
+                  </div>
+
+
+                ))}
+
+
+              </div>
+
+            )}
+
+
+
           </div>
 
 
 
-          {/* STATUS */}
+
+
+
+
+
 
           <div className="flex items-center gap-3">
 
+
             <input
+
               type="checkbox"
+
               name="isActive"
+
               checked={form.isActive}
+
               onChange={handleChange}
+
             />
 
+
             <span>
-
-              Product Visible
-
+              Product visible
             </span>
+
 
           </div>
 
 
 
-          {/* FOOTER */}
 
-          <div className="flex justify-end gap-4 pt-8 border-t">
+
+
+
+
+
+          <div
+            className="
+              flex
+              justify-end
+              gap-4
+              pt-8
+              border-t
+            "
+          >
+
 
             <button
+
               type="button"
+
               onClick={onClose}
+
               className="btn-outline"
+
             >
 
               Cancel
 
             </button>
 
+
+
             <button
-              className="btn-primary"
+
               type="submit"
+
+              className="btn-primary"
+
             >
 
-              {
-                initialData
-                  ? "Update Product"
-                  : "Create Product"
-              }
+              {initialData
+                ? "Update Product"
+                : "Create Product"}
 
             </button>
 
+
           </div>
+
+
+
 
         </form>
 
+
       </div>
+
 
     </div>
 
   );
 
 }
+
 
 export default ProductModal;

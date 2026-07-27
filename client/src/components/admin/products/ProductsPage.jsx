@@ -199,7 +199,14 @@ function ProductsPage({
                 open={modalOpen}
 
                 initialData={editingProduct}
+                brands={brands}
 
+                categories={[
+                    "Sunglasses",
+                    "Eyeglasses",
+                    "Kids",
+                    "Accessories",
+                ]}
                 onClose={() => {
 
                     setModalOpen(false);
@@ -208,28 +215,36 @@ function ProductsPage({
 
                 }}
 
-                onSave={async (form) => {
+                onSave={async (form, images) => {
 
                     let result;
+
+                    const productData = {
+                        ...form,
+                        images,
+                    };
+
 
                     if (editingProduct) {
 
                         result = await updateProduct(
                             editingProduct._id,
-                            form
+                            productData
                         );
 
                     } else {
 
                         result = await createProduct(
-                            form
+                            productData
                         );
 
                     }
 
+
                     toast[result.success ? "success" : "error"](
                         result.message
                     );
+
 
                     if (result.success) {
 
