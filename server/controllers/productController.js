@@ -338,44 +338,30 @@ export const deleteProduct = asyncHandler(async(req,res)=>{
 
 
 export const uploadImages = asyncHandler(async (req, res) => {
-  console.log("FILES:");
-  console.dir(req.files, { depth: null });
+  console.log("FILES:", req.files);
 
+  const product = await Product.findOne({ slug: req.params.slug });
 
-  const product = await Product.findOne({
-    slug:req.params.slug
-  });
+  console.log("FOUND PRODUCT:", product?.slug);
 
-
-  if(!product){
-    res.status(404);
-    throw new Error("Product not found");
-  }
-
-
-  const newImages = req.files.map((file,index)=>({
-
-    path:file.path,
-
-    publicId:file.filename,
-
-    alt:req.body.alt || product.name,
-
-    order:product.images.length + index
-
+  const newImages = (req.files || []).map((file, i) => ({
+    path: file.path,
+    alt: req.body.alt || product.name,
+    order: product.images.length + i,
   }));
 
+  console.log("NEW IMAGES:", newImages);
 
   product.images.push(...newImages);
 
+  console.log("BEFORE SAVE:", product.images);
 
   await product.save();
 
+  console.log("AFTER SAVE:", product.images);
 
-  res.status(201).json(product);
-
+  res.status(201).json(product.images);
 });
-
 
 
 
