@@ -5,29 +5,20 @@ import cloudinary from "../config/cloudinary.js";
 
 const storage = new CloudinaryStorage({
 
-  cloudinary,
+ cloudinary,
 
-  params: {
+ params:{
+   folder:"optical-store/products",
 
-    folder: "optical-store/products",
+   resource_type:"image",
 
-    allowed_formats: [
-      "jpg",
-      "jpeg",
-      "png",
-      "webp",
-    ],
-
-    transformation: [
-      {
-        width: 1200,
-        height: 1200,
-        crop: "limit",
-        quality: "auto",
-      },
-    ],
-
-  },
+   allowed_formats:[
+    "jpg",
+    "jpeg",
+    "png",
+    "webp"
+   ],
+ }
 
 });
 

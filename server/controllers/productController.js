@@ -337,57 +337,42 @@ export const deleteProduct = asyncHandler(async(req,res)=>{
 
 
 
-export const uploadImages = asyncHandler(async(req,res)=>{
+export const uploadImages = asyncHandler(async (req, res) => {
+  console.log("FILES:");
+  console.dir(req.files, { depth: null });
 
 
-  const product =
-    await Product.findOne({
-      slug:req.params.slug
-    });
-
+  const product = await Product.findOne({
+    slug:req.params.slug
+  });
 
 
   if(!product){
-
     res.status(404);
     throw new Error("Product not found");
-
   }
 
 
+  const newImages = req.files.map((file,index)=>({
 
-  const newImages =
-    (req.files || []).map(
-      (file,index)=>({
+    path:file.path,
 
-        path:file.path,
+    publicId:file.filename,
 
-        publicId:file.filename,
+    alt:req.body.alt || product.name,
 
-        alt:
-          req.body.alt ||
-          product.name,
+    order:product.images.length + index
 
-        order:
-          product.images.length + index
-
-      })
-    );
+  }));
 
 
-
-  product.images.push(
-    ...newImages
-  );
+  product.images.push(...newImages);
 
 
   await product.save();
 
 
-  res.status(201).json(
-    product.images
-  );
-
+  res.status(201).json(product);
 
 });
 
