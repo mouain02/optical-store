@@ -338,11 +338,11 @@ export const deleteProduct = asyncHandler(async(req,res)=>{
 
 
 export const uploadImages = asyncHandler(async (req, res) => {
-  console.log("FILES:", req.files);
+  
 
   const product = await Product.findOne({ slug: req.params.slug });
 
-  console.log("FOUND PRODUCT:", product?.slug);
+  
 
   const newImages = (req.files || []).map((file, i) => ({
     path: file.path,
@@ -350,7 +350,6 @@ export const uploadImages = asyncHandler(async (req, res) => {
     order: product.images.length + i,
   }));
 
-  console.log("NEW IMAGES:", newImages);
 
   product.images.push(...newImages);
 
@@ -590,7 +589,7 @@ export const getAdminProducts = asyncHandler(async(req,res)=>{
 
 
   const products =
-    await Product.find()
+    await Product.find({ isActive: { $ne: false } })
     .populate(
       "brand",
       "name"

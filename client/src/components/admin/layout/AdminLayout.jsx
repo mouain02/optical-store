@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
@@ -8,6 +10,12 @@ function AdminLayout({
   setActiveSection,
 }) {
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSetActiveSection = (section) => {
+    setActiveSection(section);
+    setMobileMenuOpen(false);
+  };
 
   return (
 
@@ -23,7 +31,11 @@ function AdminLayout({
 
         activeSection={activeSection}
 
-        setActiveSection={setActiveSection}
+        setActiveSection={handleSetActiveSection}
+
+        mobileMenuOpen={mobileMenuOpen}
+
+        closeMobileMenu={() => setMobileMenuOpen(false)}
 
       />
 
@@ -34,17 +46,21 @@ function AdminLayout({
           flex-1
           flex
           flex-col
+          min-w-0
         "
       >
 
 
-        <Topbar />
+        <Topbar
+          onMenuClick={() => setMobileMenuOpen(true)}
+        />
 
 
 
         <main
           className="
-            p-6
+            p-4
+            sm:p-6
           "
         >
 
