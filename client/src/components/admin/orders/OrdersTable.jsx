@@ -172,7 +172,9 @@ function OrdersTable({
 
 
 
-            <table className="w-full">
+            <div className="overflow-x-auto">
+
+            <table className="w-full min-w-[720px]">
 
 
                 <thead
@@ -480,6 +482,8 @@ function OrdersTable({
 
 
             </table>
+
+            </div>
 
 
 
