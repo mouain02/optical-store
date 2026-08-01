@@ -1,9 +1,30 @@
 services:
   - type: web
+    name: optical-store-api
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix server
+    startCommand: npm start --prefix server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        value: https://optical-store-client.onrender.com
+      - key: FRONTEND_URL
+        value: https://optical-store-client.onrender.com
+
+  - type: web
     name: optical-store-client
     runtime: static
+    plan: free
     buildCommand: npm install --prefix client && npm run build --prefix client
     staticPublishPath: client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://optical-store-api.onrender.com
     routes:
       - type: rewrite
         source: /*
