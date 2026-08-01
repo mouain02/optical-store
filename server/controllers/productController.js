@@ -4,6 +4,7 @@ import Product from "../models/Product.js";
 import Review from "../models/Review.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import cloudinary from "../config/cloudinary.js";
+import { normalizeImagePath } from "../utils/imagePath.js";
 
 
 const buildFilter = (query) => {
@@ -345,9 +346,10 @@ export const uploadImages = asyncHandler(async (req, res) => {
   
 
   const newImages = (req.files || []).map((file, i) => ({
-    path: file.path,
+    path: normalizeImagePath(file.path || file.secure_url || file.filename || ""),
     alt: req.body.alt || product.name,
     order: product.images.length + i,
+    publicId: file.public_id || file.filename || undefined,
   }));
 
 

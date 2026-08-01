@@ -16,10 +16,13 @@ export const calculateLensPrice = (lensType, treatments = []) => {
 export const formatPrice = (amount, currency = storeConfig.currency) =>
   `${amount.toFixed(0)} ${currency}`;
 
-export const getImageUrl = (path) => {
-  if (!path) return "/placeholder-product.svg";
-  if (path.startsWith("http")) return path;
-  return path.startsWith("/") ? path : `/${path}`;
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return "/placeholder-product.svg";
+  if (typeof imagePath !== "string") return "/placeholder-product.svg";
+  if (/^https?:\/\//i.test(imagePath) || /^data:/i.test(imagePath)) return imagePath;
+
+  const normalized = imagePath.replace(/\\/g, "/").replace(/^\.\//, "").replace(/^server\//, "");
+  return normalized.startsWith("/") ? normalized : `/${normalized}`;
 };
 
 export default { getEffectivePrice, calculateLensPrice, formatPrice, getImageUrl };
