@@ -28,9 +28,11 @@ export default function LoginPage() {
     }
   }, [navigate, user]);
 
-  const onSubmit = (values) => {
-  console.log("Submitted:", values);
-  dispatch(login(values));
+  const onSubmit = async (values) => {
+  const result = await dispatch(login(values));
+
+  alert(JSON.stringify(result, null, 2));
+};
 };
   return (
     <section className="section-padding py-16 max-w-xl mx-auto">
