@@ -29,9 +29,9 @@ export default function LoginPage() {
   }, [navigate, user]);
 
   const onSubmit = (values) => {
-    dispatch(login(values));
-  };
-
+  console.log("Submitted:", values);
+  dispatch(login(values));
+};
   return (
     <section className="section-padding py-16 max-w-xl mx-auto">
       <div className="card p-8 md:p-10">
