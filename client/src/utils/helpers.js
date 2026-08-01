@@ -16,13 +16,25 @@ export const calculateLensPrice = (lensType, treatments = []) => {
 export const formatPrice = (amount, currency = storeConfig.currency) =>
   `${amount.toFixed(0)} ${currency}`;
 
+const getApiBaseUrl = () => {
+  const configured = import.meta.env.VITE_API_URL?.trim();
+  return configured ? configured.replace(/\/$/, "") : "";
+};
+
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return "/placeholder-product.svg";
   if (typeof imagePath !== "string") return "/placeholder-product.svg";
   if (/^https?:\/\//i.test(imagePath) || /^data:/i.test(imagePath)) return imagePath;
 
   const normalized = imagePath.replace(/\\/g, "/").replace(/^\.\//, "").replace(/^server\//, "");
-  return normalized.startsWith("/") ? normalized : `/${normalized}`;
+  const cleaned = normalized.replace(/^\/+/, "");
+  const apiBase = getApiBaseUrl();
+
+  if (cleaned.startsWith("uploads/")) {
+    return apiBase ? `${apiBase}/${cleaned}` : `/api/${cleaned}`;
+  }
+
+  return apiBase ? `${apiBase}/${cleaned}` : `/${cleaned}`;
 };
 
 export default { getEffectivePrice, calculateLensPrice, formatPrice, getImageUrl };

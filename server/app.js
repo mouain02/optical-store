@@ -6,6 +6,14 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
+const allowedOrigins = [
+  "https://optical-store-jebn.onrender.com",
+  "http://localhost:5173",
+  "http://localhost:3000",
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
@@ -25,7 +33,14 @@ const app = express();
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(cors({
-  origin: "https://optical-store-jebn.onrender.com",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".onrender.com")) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 
@@ -40,6 +55,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
