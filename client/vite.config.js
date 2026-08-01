@@ -8,11 +8,11 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "https://optical-store-jebn.onrender.com",
+        target: "https://optical-store-client.onrender.com/",
         changeOrigin: true,
       },
       "/uploads": {
-        target: "https://optical-store-jebn.onrender.com",
+        target: "https://optical-store-client.onrender.com",
         changeOrigin: true,
       },
     },

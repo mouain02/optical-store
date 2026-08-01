@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 const allowedOrigins = [
-  "https://optical-store-jebn.onrender.com",
+  "https://optical-store-client.onrender.com/",
   "http://localhost:5173",
   "http://localhost:3000",
   process.env.CLIENT_URL,
