@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import app from "./app.js";
 import connectDB from "./config/db.js";
+import adminBootstrap from "./utils/adminBootstrap.js";
 
 dotenv.config({ path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".env"), override: true });
 
