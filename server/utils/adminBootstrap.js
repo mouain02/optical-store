@@ -1,3 +1,4 @@
+// server/utils/adminBootstrap.js
 import User from "../models/User.js";
 
 export const ensureDefaultAdmin = async () => {
@@ -20,3 +21,5 @@ export const ensureDefaultAdmin = async () => {
 
   return user;
 };
+
+export default ensureDefaultAdmin;

@@ -1,16 +1,18 @@
+// server/server.js
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import app from "./app.js";
 import connectDB from "./config/db.js";
-import adminBootstrap from "./utils/adminBootstrap.js";
+import { ensureDefaultAdmin } from "./utils/adminBootstrap.js";
 
 dotenv.config({ path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".env"), override: true });
 
 const PORT = process.env.PORT || 5000;
 
 connectDB()
-  .then(() => {
+  .then(async () => {
+    await ensureDefaultAdmin();
     app.listen(PORT, () =>
       console.log(`Server running on port ${PORT}`)
     );
