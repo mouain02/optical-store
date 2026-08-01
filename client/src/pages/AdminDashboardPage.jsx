@@ -132,52 +132,7 @@ function DashboardOverview({ dashboard }) {
 
 
 
-function Placeholder({ title }) {
 
-
-  return (
-
-    <div
-
-      className="
-        bg-white
-        rounded-2xl
-        border
-        border-gray-200
-        p-10
-      "
-
-    >
-
-      <h1
-        className="
-          text-2xl
-          font-semibold
-        "
-      >
-
-        {title}
-
-      </h1>
-
-
-      <p
-        className="
-          mt-3
-          text-gray-400
-        "
-      >
-
-        Management section coming next.
-
-      </p>
-
-
-    </div>
-
-  );
-
-}
 
 
 
@@ -304,7 +259,8 @@ function AdminDashboardPage() {
             updateProduct={dashboard.updateProduct}
 
             deleteProduct={dashboard.deleteProduct}
-
+            
+            refresh={dashboard.refresh}
           />
         );
 

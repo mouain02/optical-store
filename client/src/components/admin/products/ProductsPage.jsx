@@ -17,6 +17,8 @@ function ProductsPage({
     updateProduct,
 
     deleteProduct,
+    
+    refresh,
 
 }) {
 
@@ -263,11 +265,15 @@ function ProductsPage({
                     if (result.success) {
 
 
-                        // upload images after product creation
+                        // upload images after product creation or edit
+                        const slug =
+                            result.product?.slug ||
+                            editingProduct?.slug;
+
                         if (
-                            !editingProduct &&
                             images &&
-                            images.length > 0
+                            images.length > 0 &&
+                            slug
                         ) {
 
                             const formData = new FormData();
@@ -277,9 +283,16 @@ function ProductsPage({
                             });
 
                             await productService.uploadImages(
-                                result.product.slug,
+                                slug,
                                 formData
                             );
+
+                        }
+
+
+                        if (refresh) {
+
+                            await refresh();
 
                         }
 
