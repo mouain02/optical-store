@@ -1,3 +1,5 @@
+import path from "path";
+import { fileURLToPath } from "url";
 import slugify from "slugify";
 
 import Product from "../models/Product.js";
@@ -5,6 +7,26 @@ import Review from "../models/Review.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import cloudinary from "../config/cloudinary.js";
 import { normalizeImagePath } from "../utils/imagePath.js";
+
+const serverRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+const resolveImagePath = (file) => {
+  if (!file) return "";
+
+  if (file.secure_url) return normalizeImagePath(file.secure_url);
+
+  const candidate = file.path || (file.destination && file.filename ? path.join(file.destination, file.filename) : "");
+  if (!candidate) return normalizeImagePath(file.filename || "");
+
+  const absolutePath = path.isAbsolute(candidate) ? candidate : path.resolve(serverRoot, candidate);
+  const relativePath = path.relative(serverRoot, absolutePath);
+
+  if (!relativePath.startsWith("..") && !path.isAbsolute(relativePath)) {
+    return normalizeImagePath(relativePath);
+  }
+
+  return normalizeImagePath(candidate);
+};
 
 
 const buildFilter = (query) => {
@@ -346,7 +368,7 @@ export const uploadImages = asyncHandler(async (req, res) => {
   
 
   const newImages = (req.files || []).map((file, i) => ({
-    path: normalizeImagePath(file.path || file.secure_url || file.filename || ""),
+    path: resolveImagePath(file),
     alt: req.body.alt || product.name,
     order: product.images.length + i,
     publicId: file.public_id || file.filename || undefined,
