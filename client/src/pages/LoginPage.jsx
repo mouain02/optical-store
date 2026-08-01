@@ -28,12 +28,16 @@ export default function LoginPage() {
     }
   }, [navigate, user]);
 
-  const onSubmit = async (values) => {
+ const onSubmit = async (values) => {
+  console.log("Submitted:", values);
+
   const result = await dispatch(login(values));
+
+  console.log("RESULT:", result);
 
   alert(JSON.stringify(result, null, 2));
 };
-};
+
   return (
     <section className="section-padding py-16 max-w-xl mx-auto">
       <div className="card p-8 md:p-10">
