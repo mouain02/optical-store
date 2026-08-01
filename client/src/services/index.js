@@ -1,7 +1,11 @@
 import api from "./api";
 
 export const authService = {
-  login: (data) => api.post("/auth/login", data).then((r) => r.data),
+  login: (data) =>
+  api.post("/auth/login", data).then((r) => {
+    alert(JSON.stringify(r.data));
+    return r.data;
+  }),
   register: (data) => api.post("/auth/register", data).then((r) => r.data),
   getMe: () => api.get("/auth/me").then((r) => r.data),
   updateProfile: (data) => api.put("/auth/profile", data).then((r) => r.data),
