@@ -28,14 +28,8 @@ export default function LoginPage() {
     }
   }, [navigate, user]);
 
- const onSubmit = async (values) => {
-  console.log("Submitted:", values);
-
-  const result = await dispatch(login(values));
-
-  console.log("RESULT:", result);
-
-  alert(JSON.stringify(result, null, 2));
+const onSubmit = (values) => {
+  dispatch(login(values));
 };
 
   return (
