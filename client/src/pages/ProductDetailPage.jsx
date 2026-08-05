@@ -136,9 +136,9 @@ export default function ProductDetailPage() {
     related
   } = data;
 
- const images = product.images?.length
-  ? product.images
-  : [{ path: "", alt: product.name }];
+  const images = product.images?.length
+    ? product.images
+    : [{ path: "", alt: product.name }];
 
 
   const price =
@@ -212,20 +212,18 @@ export default function ProductDetailPage() {
 
   return (
 
-    <div className="
-      section-padding
-      py-12
-    ">
+    <div className="w-full">
 
 
 
-   <div className="
-  grid
-  grid-cols-1
-  lg:grid-cols-[2.5fr_1fr]
-  gap-10
-  items-start
-">
+      <div
+        className="
+    grid
+    lg:grid-cols-[75%_25%]
+    gap-10
+    items-start
+  "
+      >
 
 
 
@@ -276,7 +274,7 @@ export default function ProductDetailPage() {
           <div
             className="
               sticky
-              top-24
+              top-8
             "
           >
 
