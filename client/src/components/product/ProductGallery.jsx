@@ -1,93 +1,188 @@
-import { useState } from "react";
 import { getImageUrl } from "../../utils/helpers";
+
 
 export default function ProductGallery({
   images = [],
   productName = "",
 }) {
-  const [selected, setSelected] = useState(0);
+
 
   if (!images.length) {
+
     return (
-      <div className="aspect-square bg-gray-100 flex items-center justify-center">
-        <span className="text-gray-400">
-          No images available
-        </span>
-      </div>
-    );
-  }
 
-  return (
-    <div className="space-y-6">
-
-      {/* Hero */}
       <div
         className="
-          bg-[#f7f7f7]
-          overflow-hidden
           aspect-square
-          cursor-zoom-in
+          bg-gray-100
+          flex
+          items-center
+          justify-center
         "
       >
+
+        <span className="text-gray-400">
+
+          No images available
+
+        </span>
+
+
+      </div>
+
+    );
+
+  }
+
+
+
+
+  return (
+
+    <div
+      className="
+        w-full
+      "
+    >
+
+
+
+      {/* MAIN IMAGE */}
+
+      <div
+        className="
+          w-full
+          aspect-square
+          overflow-hidden
+          bg-gray-100
+          mb-6
+        "
+      >
+
         <img
-          src={getImageUrl(images[selected].path)}
-          alt={images[selected].alt || productName}
+
+          src={
+            getImageUrl(
+              images[0]?.path
+            )
+          }
+
+          alt={
+            images[0]?.alt ||
+            productName
+          }
+
           className="
             w-full
             h-full
             object-cover
-            transition-all
-            duration-500
-            hover:scale-105
           "
-          onError={(e) => {
-            e.target.src = "/placeholder-product.svg";
+
+          onError={(e)=>{
+
+            e.target.src =
+              "/placeholder-product.svg";
+
           }}
+
         />
+
+
       </div>
 
-      {/* Gallery */}
-      {images.length > 1 && (
-        <div className="grid grid-cols-2 gap-6">
-          {images.slice(1).map((image, index) => {
 
-            const realIndex = index + 1;
 
-            return (
-              <button
-                key={image._id || realIndex}
-                type="button"
-                onClick={() => setSelected(realIndex)}
-                className="
-                  group
-                  aspect-square
-                  overflow-hidden
-                  bg-[#f7f7f7]
-                "
-              >
-                <img
-                  src={getImageUrl(image.path)}
-                  alt={image.alt || productName}
-                  className={`
-                    w-full
-                    h-full
-                    object-cover
-                    transition
-                    duration-500
-                    group-hover:scale-105
-                    ${
-                      selected === realIndex
-                        ? "ring-2 ring-black"
-                        : ""
+
+
+
+
+      {/* FOUR SECONDARY IMAGES */}
+
+      {
+        images.length > 1 && (
+
+          <div
+            className="
+              grid
+              grid-cols-2
+              gap-6
+            "
+          >
+
+
+            {
+              images.slice(1,5)
+              .map((image,index)=>(
+
+
+                <div
+
+                  key={
+                    image._id ||
+                    index
+                  }
+
+                  className="
+                    aspect-square
+                    overflow-hidden
+                    bg-gray-100
+                  "
+
+                >
+
+
+                  <img
+
+                    src={
+                      getImageUrl(
+                        image.path
+                      )
                     }
-                  `}
-                />
-              </button>
-            );
-          })}
-        </div>
-      )}
+
+                    alt={
+                      image.alt ||
+                      productName
+                    }
+
+
+                    className="
+                      w-full
+                      h-full
+                      object-cover
+                      hover:scale-105
+                      transition-transform
+                      duration-500
+                    "
+
+
+                    onError={(e)=>{
+
+                      e.target.src =
+                      "/placeholder-product.svg";
+
+                    }}
+
+                  />
+
+
+                </div>
+
+
+              ))
+
+            }
+
+
+          </div>
+
+
+        )
+      }
+
+
 
     </div>
+
   );
+
 }

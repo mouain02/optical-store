@@ -1,222 +1,564 @@
 import { formatPrice } from "../../utils/helpers";
 
+
 export default function ProductInfo({
   product,
   price,
   onTryOn,
 }) {
+
+
   return (
-    <div className="space-y-8">
+
+    <div
+      className="
+        space-y-8
+      "
+    >
+
+
 
       {/* Brand */}
-      <p className="text-xs uppercase tracking-[0.35em] text-gray-500">
-        {product.brand?.name}
-      </p>
 
-      {/* Name */}
-      <h1 className="text-4xl font-semibold uppercase tracking-wider">
-        {product.name}
-      </h1>
+      {
+        product.brand?.name && (
 
-      {/* Price */}
+          <p
+            className="
+              text-xs
+              uppercase
+              tracking-[0.3em]
+              text-gray-500
+            "
+          >
+
+            {product.brand.name}
+
+          </p>
+
+        )
+      }
+
+
+
+
+
+
+      {/* Product name + price */}
+
       <div>
-        <p className="text-3xl font-medium">
+
+
+        <h1
+          className="
+            text-3xl
+            font-semibold
+            uppercase
+            tracking-widest
+          "
+        >
+
+          {product.name}
+
+        </h1>
+
+
+
+        <p
+          className="
+            mt-4
+            text-xl
+            font-medium
+          "
+        >
+
           {formatPrice(price)}
+
         </p>
 
-        {product.discountPrice > 0 && (
-          <p className="line-through text-gray-400 mt-2">
-            {formatPrice(product.price)}
-          </p>
-        )}
+
       </div>
 
-      {/* Rating */}
-      <div className="flex items-center gap-3 border-b pb-8">
-        <span className="text-lg">
-          ★★★★★
-        </span>
 
-        <span className="text-sm text-gray-500">
-          ({product.ratings?.count || 0})
-        </span>
-      </div>
 
-      {/* Colors */}
-      {product.colors?.length > 0 && (
-        <div className="border-b pb-8">
 
-          <h3 className="uppercase tracking-widest text-xs mb-5">
-            Colors
-          </h3>
 
-          <div className="flex flex-wrap gap-3">
 
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                className="
-                  px-4
-                  py-2
-                  border
-                  hover:border-black
-                  transition
-                  text-sm
-                "
-              >
-                {color}
-              </button>
-            ))}
+
+
+
+      {/* Reference code */}
+
+      {
+        product.referenceCode && (
+
+          <div
+            className="
+              border-t
+              pt-6
+            "
+          >
+
+            <p
+              className="
+                text-xs
+                uppercase
+                tracking-widest
+                text-gray-500
+                mb-2
+              "
+            >
+
+              Model reference
+
+            </p>
+
+
+            <p
+              className="
+                text-sm
+              "
+            >
+
+              {product.referenceCode}
+
+            </p>
+
 
           </div>
 
-        </div>
-      )}
+        )
+      }
 
-      {/* Frame */}
-      {product.frame && (
-        <div className="border-b pb-8 space-y-3">
 
-          <h3 className="uppercase tracking-widest text-xs">
-            Frame
-          </h3>
 
-          <p>{product.frame.finish}</p>
 
-          <p>{product.frame.color}</p>
 
-          <p className="text-gray-500">
-            {product.frame.material}
-          </p>
 
-        </div>
-      )}
 
-      {/* Reference */}
-      {product.referenceCode && (
-        <div className="border-b pb-8">
 
-          <h3 className="uppercase tracking-widest text-xs mb-3">
-            Reference
-          </h3>
 
-          <p className="text-sm">
-            {product.referenceCode}
-          </p>
+      {/* Colors */}
 
-        </div>
-      )}
+      {
+        product.colors?.length > 0 && (
 
-      {/* Lens */}
-      {product.lens && (
-        <div className="border-b pb-8 space-y-3">
+          <div>
 
-          <h3 className="uppercase tracking-widest text-xs">
-            Lens
-          </h3>
+            <h3
+              className="
+                text-xs
+                uppercase
+                tracking-widest
+                mb-3
+              "
+            >
 
-          <p>{product.lens.color}</p>
+              Colors
 
-          <p className="text-gray-500">
-            {product.lens.treatment}
-          </p>
+            </h3>
 
-          {product.lens.polarized && (
-            <span className="inline-flex border px-3 py-1 text-xs">
-              Polarized
-            </span>
-          )}
 
-        </div>
-      )}
+
+            <div
+              className="
+                space-y-2
+              "
+            >
+
+              {
+                product.colors.map((color)=>(
+
+                  <div
+
+                    key={color}
+
+                    className="
+                      border
+                      px-4
+                      py-3
+                      text-sm
+                    "
+
+                  >
+
+                    {color}
+
+                  </div>
+
+                ))
+              }
+
+
+            </div>
+
+
+          </div>
+
+        )
+      }
+
+
+
+
+
+
+
+
+
+      {/* Frame information */}
+
+      {
+        product.frame && (
+
+          <div
+            className="
+              border-t
+              pt-6
+              space-y-3
+            "
+          >
+
+
+            <h3
+              className="
+                text-xs
+                uppercase
+                tracking-widest
+              "
+            >
+
+              Frame
+
+            </h3>
+
+
+
+            {
+              product.frame.finish && (
+
+                <p className="text-sm">
+
+                  {product.frame.finish}
+
+                  {" "}
+
+                  {product.frame.color}
+
+                </p>
+
+              )
+            }
+
+
+
+            {
+              product.frame.material && (
+
+                <p
+                  className="
+                    text-sm
+                    text-gray-500
+                  "
+                >
+
+                  {product.frame.material}
+
+                </p>
+
+              )
+            }
+
+
+
+          </div>
+
+        )
+      }
+
+
+
+
+
+
+
+
+
+      {/* Lens information */}
+
+      {
+        product.lens && (
+
+          <div
+            className="
+              border-t
+              pt-6
+              space-y-3
+            "
+          >
+
+
+            <h3
+              className="
+                text-xs
+                uppercase
+                tracking-widest
+              "
+            >
+
+              Lens
+
+            </h3>
+
+
+
+
+            {
+              product.lens.color && (
+
+                <p className="text-sm">
+
+                  {product.lens.color}
+
+                </p>
+
+              )
+            }
+
+
+
+
+
+            {
+              product.lens.treatment && (
+
+                <p
+                  className="
+                    text-sm
+                    text-gray-500
+                  "
+                >
+
+                  {product.lens.treatment}
+
+                </p>
+
+              )
+            }
+
+
+
+
+
+            {
+              product.lens.polarized && (
+
+                <span
+                  className="
+                    inline-block
+                    border
+                    px-3
+                    py-1
+                    text-xs
+                  "
+                >
+
+                  Polarized
+
+                </span>
+
+              )
+            }
+
+
+          </div>
+
+        )
+      }
+
+
+
+
+
+
+
+
 
       {/* Dimensions */}
-      {product.dimensions && (
-        <div className="border-b pb-8 space-y-2">
 
-          <h3 className="uppercase tracking-widest text-xs">
-            Dimensions
-          </h3>
+      {
+        product.dimensions && (
 
-          <p>Lens width: {product.dimensions.size}</p>
+          <div
+            className="
+              border-t
+              pt-6
+              space-y-2
+            "
+          >
 
-          <p>Bridge: {product.dimensions.bridge}</p>
+            <h3
+              className="
+                text-xs
+                uppercase
+                tracking-widest
+              "
+            >
 
-          <p>Temple: {product.dimensions.templeLength}</p>
+              Dimensions
 
-        </div>
-      )}
+            </h3>
 
-      {/* Try On */}
-      {onTryOn && (
-        <button
-          onClick={onTryOn}
+
+
+            {
+              Object.entries(product.dimensions)
+              .filter(([_,value])=>value)
+              .map(([key,value])=>(
+
+                <p
+                  key={key}
+                  className="text-sm"
+                >
+
+                  {key}: {value}
+
+                </p>
+
+
+              ))
+            }
+
+
+          </div>
+
+        )
+      }
+
+
+
+
+
+
+
+
+
+      {/* Geofit */}
+
+      <div
+        className="
+          border-t
+          pt-6
+        "
+      >
+
+        <h3
           className="
-            w-full
-            border
-            py-4
+            text-xs
             uppercase
             tracking-widest
-            hover:bg-black
-            hover:text-white
-            transition
+            mb-3
           "
         >
-          Try On
-        </button>
-      )}
 
-      {/* Personalize */}
-      {product.supportsLensCustomization && (
-        <button
-          className="
-            w-full
-            border
-            py-4
-            uppercase
-            tracking-widest
-            hover:bg-black
-            hover:text-white
-            transition
-          "
-        >
-          Personalize Lenses
-        </button>
-      )}
+          Geofit
 
-      {/* Services */}
-      <div className="border-t pt-8 space-y-6 text-sm">
+        </h3>
 
-        <div>
-          <strong>Pay later</strong>
-          <p className="text-gray-500">
-            PayPal • Klarna
-          </p>
-        </div>
 
-        <div>
-          <strong>Estimated delivery</strong>
-          <p className="text-gray-500">
-            13-08-2026
-          </p>
-        </div>
+        <p className="text-sm">
 
-        <div>
-          <strong>Free returns</strong>
-          <p className="text-gray-500">
-            Return by mail
-          </p>
-        </div>
+          High bridge fit
 
-        <div>
-          <strong>Perfect fit</strong>
-          <p className="text-gray-500">
-            Free adjustments in store
-          </p>
-        </div>
+        </p>
+
 
       </div>
 
+
+
+
+
+
+
+
+
+      {/* Try on button */}
+
+      {
+        onTryOn && (
+
+          <button
+
+            type="button"
+
+            onClick={onTryOn}
+
+            className="
+              w-full
+              border
+              py-4
+              text-sm
+              uppercase
+              tracking-widest
+              hover:bg-black
+              hover:text-white
+              transition
+            "
+
+          >
+
+            Try on glasses
+
+          </button>
+
+        )
+      }
+
+
+
+
+
+
+
+
+
+      {/* Payment information */}
+
+      <div
+        className="
+          border-t
+          pt-6
+          text-sm
+          text-gray-500
+          space-y-2
+        "
+      >
+
+        <p>
+          Pay later with:
+        </p>
+
+
+        <p>
+          Paypal · Klarna
+        </p>
+
+
+        <p>
+          Estimated delivery:
+          {" "}
+          13-08-2026
+        </p>
+
+
+      </div>
+
+
+
+
     </div>
+
   );
+
 }

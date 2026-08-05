@@ -1,4 +1,5 @@
-import { Heart, ShoppingBag } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 
 export default function ProductPurchase({
   product,
@@ -6,75 +7,99 @@ export default function ProductPurchase({
   onWishlist,
   inWishlist,
 }) {
-  return (
-    <div className="border-t pt-8 space-y-4">
 
-      {/* Stock */}
-      <div>
-        {product.stock > 0 ? (
-          <p className="text-green-700 text-sm">
-            In stock · {product.stock} available
-          </p>
-        ) : (
-          <p className="text-red-600 text-sm">
-            Out of stock
-          </p>
-        )}
-      </div>
+  const { t } = useTranslation();
+
+
+  return (
+
+    <div
+      className="
+        space-y-3
+      "
+    >
+
 
       {/* Add to cart */}
+
       <button
+
+        type="button"
+
         onClick={onAddToCart}
+
         disabled={product.stock <= 0}
+
         className="
           w-full
-          h-14
           bg-black
           text-white
+          py-5
+          text-sm
           uppercase
           tracking-widest
-          flex
-          items-center
-          justify-center
-          gap-3
-          hover:bg-neutral-800
+          hover:bg-gray-800
           transition
           disabled:opacity-50
         "
-      >
-        <ShoppingBag size={18} />
 
-        Add to Cart
+      >
+
+        {
+          product.stock > 0
+            ? t("product.addToCart")
+            : "Out of stock"
+        }
+
+
       </button>
 
-      {/* Wishlist */}
-      {onWishlist && (
-        <button
-          onClick={onWishlist}
-          className="
-            w-full
-            h-14
-            border
-            flex
-            items-center
-            justify-center
-            gap-3
-            uppercase
-            tracking-widest
-            hover:bg-gray-100
-            transition
-          "
-        >
-          <Heart
-            size={18}
-            fill={inWishlist ? "currentColor" : "none"}
-          />
 
-          {inWishlist
-            ? "Saved"
-            : "Add to Wishlist"}
-        </button>
-      )}
+
+
+
+      {/* Wishlist */}
+
+      {
+        onWishlist && (
+
+          <button
+
+            type="button"
+
+            onClick={onWishlist}
+
+            className="
+              w-full
+              border
+              border-black
+              py-4
+              text-sm
+              uppercase
+              tracking-widest
+              hover:bg-black
+              hover:text-white
+              transition
+            "
+
+          >
+
+            {
+              inWishlist
+                ? "Remove from wishlist"
+                : "Add to wishlist"
+            }
+
+
+          </button>
+
+        )
+      }
+
+
+
     </div>
+
   );
+
 }
