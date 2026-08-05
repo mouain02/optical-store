@@ -15,14 +15,49 @@ function ProductModal({
     name: "",
     brand: "",
     category: "",
+
+    referenceCode: "",
+
     price: "",
     salePrice: "",
     stock: "",
     sku: "",
+
     lowStock: 5,
+
     description: "",
+
+    frame: {
+      shape: "",
+      color: "",
+      material: "",
+      finish: "",
+      templeColor: "",
+    },
+
+    lens: {
+      name: "",
+      color: "",
+      treatment: "",
+      category: "",
+      transmission: "",
+      polarized: false,
+    },
+
+    dimensions: {
+      size: "",
+      bridge: "",
+      lensHeight: "",
+      templeLength: "",
+    },
+
+    tryOn: {
+      enabled: false,
+    },
+
     metaTitle: "",
     metaDescription: "",
+
     isActive: true,
 
   });
@@ -114,7 +149,20 @@ function ProductModal({
 
   };
 
+  const handleNestedChange = (section, field, value) => {
 
+    setForm((prev) => ({
+      ...prev,
+
+      [section]: {
+        ...prev[section],
+
+        [field]: value,
+      },
+
+    }));
+
+  };
 
 
 
@@ -323,6 +371,14 @@ function ProductModal({
 
                   className="input-field"
 
+                />
+
+                <input
+                  name="referenceCode"
+                  placeholder="Reference code (RB2140 901 50-22)"
+                  value={form.referenceCode}
+                  onChange={handleChange}
+                  className="input-field"
                 />
 
                 {errors.name &&
@@ -540,6 +596,91 @@ function ProductModal({
 
 
           </div>
+
+          <div>
+
+  <h3 className="text-xl font-semibold mb-5">
+    Frame Information
+  </h3>
+
+
+  <div className="grid grid-cols-2 gap-6">
+
+
+    <input
+      placeholder="Frame shape (Square, Aviator...)"
+      value={form.frame.shape}
+      onChange={(e) =>
+        handleNestedChange(
+          "frame",
+          "shape",
+          e.target.value
+        )
+      }
+      className="input-field"
+    />
+
+
+    <input
+      placeholder="Frame material (Acetate, Metal...)"
+      value={form.frame.material}
+      onChange={(e) =>
+        handleNestedChange(
+          "frame",
+          "material",
+          e.target.value
+        )
+      }
+      className="input-field"
+    />
+
+
+    <input
+      placeholder="Frame color"
+      value={form.frame.color}
+      onChange={(e) =>
+        handleNestedChange(
+          "frame",
+          "color",
+          e.target.value
+        )
+      }
+      className="input-field"
+    />
+
+
+    <input
+      placeholder="Finish (Polished, Matte...)"
+      value={form.frame.finish}
+      onChange={(e) =>
+        handleNestedChange(
+          "frame",
+          "finish",
+          e.target.value
+        )
+      }
+      className="input-field"
+    />
+
+
+    <input
+      placeholder="Temple color"
+      value={form.frame.templeColor}
+      onChange={(e) =>
+        handleNestedChange(
+          "frame",
+          "templeColor",
+          e.target.value
+        )
+      }
+      className="input-field"
+    />
+
+
+  </div>
+
+
+</div>
 
 
 
