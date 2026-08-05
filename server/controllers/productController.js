@@ -13,17 +13,23 @@ const serverRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".
 const resolveImagePath = (file) => {
   if (!file) return "";
 
-  if (file.secure_url) return normalizeImagePath(file.secure_url);
-
-  const candidate = file.path || (file.destination && file.filename ? path.join(file.destination, file.filename) : "");
-  if (!candidate) return normalizeImagePath(file.filename || "");
-
-  const absolutePath = path.isAbsolute(candidate) ? candidate : path.resolve(serverRoot, candidate);
-  const relativePath = path.relative(serverRoot, absolutePath);
-
-  if (!relativePath.startsWith("..") && !path.isAbsolute(relativePath)) {
-    return normalizeImagePath(relativePath);
+  // Cloudinary URL
+  if (file.path && /^https?:\/\//i.test(file.path)) {
+    return file.path;
   }
+
+  if (file.secure_url && /^https?:\/\//i.test(file.secure_url)) {
+    return file.secure_url;
+  }
+
+  // Local uploads fallback
+  const candidate =
+    file.path ||
+    (file.destination && file.filename
+      ? path.join(file.destination, file.filename)
+      : "");
+
+  if (!candidate) return "";
 
   return normalizeImagePath(candidate);
 };
