@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -7,8 +8,8 @@ import {
   Tag,
   Building2,
   X,
+  ArrowLeft,
 } from "lucide-react";
-
 const menu = [
   { id: "dashboard", name: "Dashboard", icon: LayoutDashboard },
   { id: "products", name: "Products", icon: Package },
@@ -36,13 +37,14 @@ function Sidebar({
 
       <aside
         className={`
-          w-72 bg-black text-white min-h-screen p-6
-          fixed top-0 left-0 z-50
-          transform transition-transform duration-200 ease-in-out
-          overflow-y-auto
-          lg:sticky lg:translate-x-0
-          ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+    w-72 bg-black text-white min-h-screen p-6
+    fixed top-0 left-0 z-50
+    transform transition-transform duration-200 ease-in-out
+    overflow-y-auto
+    flex flex-col
+    lg:sticky lg:translate-x-0
+    ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
+  `}
       >
         <div className="flex items-center justify-between mb-10">
           <h1 className="text-2xl font-bold tracking-widest">LUMIÈRE</h1>
@@ -60,10 +62,9 @@ function Sidebar({
                 onClick={() => setActiveSection(item.id)}
                 className={`
                   w-full flex items-center gap-4 px-4 py-3 text-sm uppercase tracking-wider transition
-                  ${
-                    activeSection === item.id
-                      ? "bg-white text-black"
-                      : "hover:bg-white hover:text-black"
+                  ${activeSection === item.id
+                    ? "bg-white text-black"
+                    : "hover:bg-white hover:text-black"
                   }
                 `}
               >
@@ -73,6 +74,23 @@ function Sidebar({
             );
           })}
         </nav>
+        <div className="mt-auto pt-8 border-t border-white/10">
+          <Link
+            to="/"
+            onClick={closeMobileMenu}
+            className="
+      flex items-center gap-4
+      px-4 py-3
+      text-sm uppercase tracking-wider
+      rounded-lg
+      transition
+      hover:bg-white hover:text-black
+    "
+          >
+            <ArrowLeft size={18} />
+            Back to Store
+          </Link>
+        </div>
       </aside>
     </>
   );
