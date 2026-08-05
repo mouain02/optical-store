@@ -11,7 +11,7 @@ export default function ProductDetails({ product }) {
           font-semibold
           uppercase
           tracking-widest
-          mb-6
+          mb-0
         ">
           Product Information
         </h2>

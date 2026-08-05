@@ -256,13 +256,13 @@ export default function ProductDetailPage() {
   return (
 
     <div
-      className="
-        w-full
-        px-6
-        lg:px-10
-        py-12
-      "
-    >
+  className="
+    w-full
+    pl-0
+    pr-0
+    py-12
+  "
+>
 
 
 
@@ -528,7 +528,7 @@ export default function ProductDetailPage() {
                 grid
                 grid-cols-2
                 md:grid-cols-4
-                gap-6
+                gap-0
               "
             >
 
