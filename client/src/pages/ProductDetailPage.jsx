@@ -131,9 +131,12 @@ export default function ProductDetailPage() {
 
 
 
-  const { product, reviews, related } = data;
+  const {
+    product,
+    related
+  } = data;
 
-const images = product.images?.length
+ const images = product.images?.length
   ? product.images
   : [{ path: "", alt: product.name }];
 
@@ -216,14 +219,13 @@ const images = product.images?.length
 
 
 
-      <div className="
+   <div className="
   grid
   grid-cols-1
   lg:grid-cols-[2.5fr_1fr]
   gap-10
   items-start
 ">
-
 
 
 
