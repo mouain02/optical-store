@@ -9,6 +9,11 @@ import LensCustomizer from "../components/product/LensCustomizer";
 import ProductCard from "../components/product/ProductCard";
 import Loader from "../components/common/Loader";
 import TryOnModal from "../components/TryOn/TryOnModal";
+import ProductGallery from "../components/product/ProductGallery";
+import ProductInfo from "../components/product/ProductInfo";
+import ProductPurchase from "../components/product/ProductPurchase";
+import ProductDetails from "../components/product/ProductDetails";
+import PrescriptionForm from "../components/product/PrescriptionForm";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
