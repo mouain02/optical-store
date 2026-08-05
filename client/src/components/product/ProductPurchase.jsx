@@ -1,5 +1,4 @@
-import { useTranslation } from "react-i18next";
-
+import { Heart, ShoppingBag } from "lucide-react";
 
 export default function ProductPurchase({
   product,
@@ -7,70 +6,75 @@ export default function ProductPurchase({
   onWishlist,
   inWishlist,
 }) {
-
-  const { t } = useTranslation();
-
-
   return (
-    <div
-      className="
-        sticky
-        bottom-6
-        space-y-3
-      "
-    >
+    <div className="border-t pt-8 space-y-4">
 
+      {/* Stock */}
+      <div>
+        {product.stock > 0 ? (
+          <p className="text-green-700 text-sm">
+            In stock · {product.stock} available
+          </p>
+        ) : (
+          <p className="text-red-600 text-sm">
+            Out of stock
+          </p>
+        )}
+      </div>
 
+      {/* Add to cart */}
       <button
-        type="button"
         onClick={onAddToCart}
         disabled={product.stock <= 0}
         className="
           w-full
+          h-14
           bg-black
           text-white
-          py-5
-          text-sm
           uppercase
           tracking-widest
-          hover:bg-gray-800
+          flex
+          items-center
+          justify-center
+          gap-3
+          hover:bg-neutral-800
           transition
           disabled:opacity-50
         "
       >
+        <ShoppingBag size={18} />
 
-        {product.stock > 0
-          ? t("product.addToCart")
-          : "Out of stock"}
-
+        Add to Cart
       </button>
 
-
-
+      {/* Wishlist */}
       {onWishlist && (
-
         <button
-          type="button"
           onClick={onWishlist}
           className="
             w-full
+            h-14
             border
-            py-4
-            text-sm
+            flex
+            items-center
+            justify-center
+            gap-3
             uppercase
             tracking-widest
+            hover:bg-gray-100
+            transition
           "
         >
+          <Heart
+            size={18}
+            fill={inWishlist ? "currentColor" : "none"}
+          />
 
           {inWishlist
-            ? "Remove from wishlist"
-            : "Add to wishlist"}
-
+            ? "Saved"
+            : "Add to Wishlist"}
         </button>
-
       )}
-
-
     </div>
   );
 }
