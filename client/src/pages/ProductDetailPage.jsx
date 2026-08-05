@@ -131,11 +131,11 @@ export default function ProductDetailPage() {
 
 
 
-  const {
-    product,
-    related
-  } = data;
+  const { product, reviews, related } = data;
 
+const images = product.images?.length
+  ? product.images
+  : [{ path: "", alt: product.name }];
 
 
   const price =
