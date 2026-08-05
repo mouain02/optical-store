@@ -213,7 +213,7 @@ export default function ProductInfo({
 
 
       {/* Try on */}
-      {product.tryOn?.enabled && (
+      {onTryOn && (
 
         <button
           onClick={onTryOn}
