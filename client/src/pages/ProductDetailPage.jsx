@@ -33,31 +33,31 @@ export default function ProductDetailPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
 
-  const [data,setData] = useState(null);
-  const [loading,setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const [color,setColor] = useState("");
-  const [size,setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
-  const [lensOptions,setLensOptions] = useState(null);
+  const [lensOptions, setLensOptions] = useState(null);
 
-  const [prescriptions,setPrescriptions] = useState([]);
-  const [selectedRx,setSelectedRx] = useState("");
+  const [prescriptions, setPrescriptions] = useState([]);
+  const [selectedRx, setSelectedRx] = useState("");
 
-  const [inWishlist,setInWishlist] = useState(false);
+  const [inWishlist, setInWishlist] = useState(false);
 
-  const [showTryOn,setShowTryOn] = useState(false);
+  const [showTryOn, setShowTryOn] = useState(false);
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
     productService
       .getBySlug(slug)
-      .then((res)=>{
+      .then((res) => {
 
         setData(res);
 
@@ -68,60 +68,60 @@ export default function ProductDetailPage() {
         setSize(product.sizes?.[0] || "");
 
 
-        if(product.supportsLensCustomization){
+        if (product.supportsLensCustomization) {
           setLensOptions({
-            type:"single",
-            treatments:[]
+            type: "single",
+            treatments: []
           });
         }
 
       })
-      .finally(()=>setLoading(false));
+      .finally(() => setLoading(false));
 
 
-  },[slug]);
+  }, [slug]);
 
 
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(!user || !data?.product)
+    if (!user || !data?.product)
       return;
 
 
     prescriptionService
       .getAll()
       .then(setPrescriptions)
-      .catch(()=>{});
+      .catch(() => { });
 
 
     wishlistService
       .getAll()
-      .then((list)=>{
+      .then((list) => {
 
         setInWishlist(
           list.some(
-            (p)=>p._id === data.product._id
+            (p) => p._id === data.product._id
           )
         );
 
       })
-      .catch(()=>{});
+      .catch(() => { });
 
 
-  },[user,data]);
+  }, [user, data]);
 
 
 
 
 
-  if(loading)
-    return <Loader/>;
+  if (loading)
+    return <Loader />;
 
 
-  if(!data)
+  if (!data)
     return (
       <div className="py-20 text-center">
         {t("common.error")}
@@ -144,7 +144,7 @@ export default function ProductDetailPage() {
 
 
 
-  const handleAddToCart = ()=>{
+  const handleAddToCart = () => {
 
 
     dispatch(
@@ -153,17 +153,17 @@ export default function ProductDetailPage() {
 
         product,
 
-        quantity:1,
+        quantity: 1,
 
-        variant:{
+        variant: {
           color,
           size
         },
 
         lensOptions:
           product.supportsLensCustomization
-          ? lensOptions
-          : null,
+            ? lensOptions
+            : null,
 
 
         prescription:
@@ -179,20 +179,20 @@ export default function ProductDetailPage() {
 
 
 
-  const toggleWishlist = async()=>{
+  const toggleWishlist = async () => {
 
-    if(!user)
+    if (!user)
       return;
 
 
-    if(inWishlist){
+    if (inWishlist) {
 
       await wishlistService.remove(product._id);
 
       setInWishlist(false);
 
     }
-    else{
+    else {
 
       await wishlistService.add(product._id);
 
@@ -217,11 +217,12 @@ export default function ProductDetailPage() {
 
 
       <div className="
-        grid
-        grid-cols-1
-        lg:grid-cols-12
-        gap-12
-      ">
+  grid
+  grid-cols-1
+  lg:grid-cols-[2.5fr_1fr]
+  gap-10
+  items-start
+">
 
 
 
@@ -236,11 +237,8 @@ export default function ProductDetailPage() {
 
 
           <ProductGallery
-
-            images={product.images}
-
-            product={product}
-
+            images={images}
+            productName={product.name}
           />
 
 
@@ -287,7 +285,7 @@ export default function ProductDetailPage() {
 
               price={price}
 
-              onTryOn={()=>
+              onTryOn={() =>
                 setShowTryOn(true)
               }
 
@@ -308,8 +306,8 @@ export default function ProductDetailPage() {
 
                 onWishlist={
                   user
-                  ? toggleWishlist
-                  : null
+                    ? toggleWishlist
+                    : null
                 }
 
                 inWishlist={inWishlist}
@@ -367,7 +365,7 @@ export default function ProductDetailPage() {
       {/* Prescription */}
 
       {(product.requiresPrescription ||
-        product.category==="prescription") &&
+        product.category === "prescription") &&
 
         user &&
 
@@ -375,43 +373,43 @@ export default function ProductDetailPage() {
 
         (
 
-        <div className="mt-16">
+          <div className="mt-16">
 
-          <select
+            <select
 
-            value={selectedRx}
+              value={selectedRx}
 
-            onChange={(e)=>
-              setSelectedRx(e.target.value)
-            }
+              onChange={(e) =>
+                setSelectedRx(e.target.value)
+              }
 
-            className="input-field"
+              className="input-field"
 
-          >
+            >
 
-            <option value="">
-              Select prescription
-            </option>
-
-
-            {prescriptions.map((rx)=>(
-
-              <option
-                key={rx._id}
-                value={rx._id}
-              >
-                {rx.label}
+              <option value="">
+                Select prescription
               </option>
 
-            ))}
+
+              {prescriptions.map((rx) => (
+
+                <option
+                  key={rx._id}
+                  value={rx._id}
+                >
+                  {rx.label}
+                </option>
+
+              ))}
 
 
-          </select>
+            </select>
 
 
-        </div>
+          </div>
 
-      )}
+        )}
 
 
 
@@ -445,7 +443,7 @@ export default function ProductDetailPage() {
           ">
 
 
-            {related.map((p)=>(
+            {related.map((p) => (
 
               <ProductCard
                 key={p._id}
@@ -473,7 +471,7 @@ export default function ProductDetailPage() {
 
         isOpen={showTryOn}
 
-        onClose={()=>
+        onClose={() =>
           setShowTryOn(false)
         }
 
