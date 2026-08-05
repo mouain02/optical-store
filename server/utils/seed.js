@@ -172,8 +172,6 @@ const seed = async () => {
   });
 
   console.log("Seed completed!");
-  console.log("Admin: admin@optical.com / admin123");
-  console.log("Customer: customer@optical.com / customer123");
   console.log(`Brands: ${createdBrands.length}, Products: ${seededProducts.length}`);
 
   await mongoose.disconnect();

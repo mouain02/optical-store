@@ -377,11 +377,7 @@ export const uploadImages = asyncHandler(async (req, res) => {
 
   product.images.push(...newImages);
 
-  console.log("BEFORE SAVE:", product.images);
-
   await product.save();
-
-  console.log("AFTER SAVE:", product.images);
 
   res.status(201).json(product.images);
 });

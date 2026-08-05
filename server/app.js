@@ -6,14 +6,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
-const allowedOrigins = [
-  "https://optical-store-client.onrender.com/",
-  "http://localhost:5173",
-  "http://localhost:3000",
-  process.env.CLIENT_URL,
-  process.env.FRONTEND_URL,
-].filter(Boolean);
-
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
@@ -27,6 +19,14 @@ import storeRoutes from "./routes/storeRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config({ path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".env"), override: true });
+
+const allowedOrigins = [
+  "https://optical-store-client.onrender.com",
+  "http://localhost:5173",
+  "http://localhost:3000",
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();

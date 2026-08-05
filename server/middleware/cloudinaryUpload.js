@@ -43,9 +43,6 @@ const upload = multer({ storage }).array("images", 10);
 
 export default (req, res, next) => {
   upload(req, res, (err) => {
-    console.log("MULTER ERROR:", err);
-    console.log("FILES:", req.files);
-
     if (err) return next(err);
 
     next();

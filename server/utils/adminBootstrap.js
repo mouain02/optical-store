@@ -2,8 +2,13 @@
 import User from "../models/User.js";
 
 export const ensureDefaultAdmin = async () => {
-  const email = process.env.ADMIN_EMAIL || "admin@optical.com";
-  const password = process.env.ADMIN_PASSWORD || "admin123";
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    console.warn("Default admin bootstrap skipped: ADMIN_EMAIL and ADMIN_PASSWORD are required.");
+    return null;
+  }
 
   let user = await User.findOne({ email });
 

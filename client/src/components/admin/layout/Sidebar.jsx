@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import storeConfig from "../../../config/storeConfig";
 import {
   LayoutDashboard,
   Package,
@@ -47,7 +48,9 @@ function Sidebar({
   `}
       >
         <div className="flex items-center justify-between mb-10">
-          <h1 className="text-2xl font-bold tracking-widest">LUMIÈRE</h1>
+          <h1 className="text-2xl font-bold tracking-widest uppercase">
+            {storeConfig.storeName}
+          </h1>
           <button onClick={closeMobileMenu} className="lg:hidden p-1">
             <X size={22} />
           </button>

@@ -45,8 +45,6 @@ function useFaceLandmarker(videoRef) {
 
                     faceLandmarkerRef.current = landmarker;
 
-                    console.log("Face Landmarker ready");
-
                 }
 
 
